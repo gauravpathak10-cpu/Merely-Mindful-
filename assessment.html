@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Mother Are You? — Merely Mindful</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B1E3F;
+    --crimson-dark: #6B1530;
+    --gold: #B08D57;
+    --gold-light: #D4B98C;
+    --cream: #F7F2E9;
+    --cream-deep: #EFE6D6;
+    --charcoal: #2B2B2B;
+    --grey: #6E6E6E;
+    --blush: #E8D5D0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .bg-mandala {
+    position: fixed;
+    bottom: -180px;
+    right: -180px;
+    width: 520px;
+    height: 520px;
+    opacity: 0.07;
+    z-index: 0;
+    pointer-events: none;
+    transition: transform 4s ease;
+  }
+  .bg-mandala svg { width: 100%; height: 100%; }
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 38px;
+    text-align: center;
+    color: var(--crimson);
+    margin: 0 0 14px;
+    line-height: 1.15;
+  }
+  .sub {
+    text-align: center;
+    color: var(--grey);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 460px;
+    margin: 0 auto 40px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 24px rgba(139,30,63,0.07);
+    padding: 40px 36px;
+    position: relative;
+    border: 1px solid var(--cream-deep);
+  }
+  .ring-track {
+    width: 100%;
+    height: 3px;
+    background: var(--cream-deep);
+    border-radius: 3px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .ring-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--crimson) 100%);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .q-meta {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.35;
+    margin: 0 0 28px;
+  }
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option {
+    text-align: left;
+    background: var(--cream);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--charcoal);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.45;
+  }
+  .option:hover { border-color: var(--gold-light); background: #fff; }
+  .option.selected {
+    border-color: var(--crimson);
+    background: var(--blush);
+  }
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+  .btn-back {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--grey);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 4px;
+  }
+  .btn-back:disabled { opacity: 0; cursor: default; }
+  .btn-next {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--crimson);
+    border: none;
+    border-radius: 30px;
+    padding: 13px 30px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .btn-next:hover { background: var(--crimson-dark); }
+  .btn-next:disabled { background: var(--cream-deep); color: var(--grey); cursor: default; }
+
+  /* Email gate */
+  .gate-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--blush);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .gate-icon svg { width: 26px; height: 26px; }
+  .gate-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    text-align: center;
+    color: var(--crimson);
+    margin: 0 0 10px;
+  }
+  .gate-sub {
+    text-align: center;
+    color: var(--grey);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 28px;
+  }
+  .field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 6px;
+    display: block;
+  }
+  input[type="text"], input[type="email"] {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    padding: 13px 16px;
+    border: 1.5px solid var(--cream-deep);
+    border-radius: 10px;
+    margin-bottom: 6px;
+    background: var(--cream);
+    color: var(--charcoal);
+  }
+  input[type="text"]:focus, input[type="email"]:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #fff;
+  }
+  .field-error {
+    font-size: 12.5px;
+    color: var(--crimson);
+    margin: 0 0 14px;
+    min-height: 0;
+    display: none;
+  }
+  .field-error.show { display: block; }
+  .gate-cta {
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--crimson);
+    border: none;
+    border-radius: 30px;
+    padding: 15px;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+  .gate-cta:hover { background: var(--crimson-dark); }
+  .gate-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--grey);
+    margin-top: 14px;
+  }
+
+  /* Result */
+  .result-eyebrow {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .result-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 34px;
+    text-align: center;
+    color: var(--crimson);
+    margin: 0 0 22px;
+    line-height: 1.2;
+  }
+  .result-body p {
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--charcoal);
+    margin: 0 0 16px;
+  }
+  .result-divider {
+    border: none;
+    border-top: 1px solid var(--cream-deep);
+    margin: 28px 0;
+  }
+  .result-cta-label {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .result-cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--crimson);
+    margin: 0 0 10px;
+  }
+  .result-cta-body {
+    font-size: 14.5px;
+    color: var(--grey);
+    line-height: 1.65;
+    margin: 0 0 22px;
+  }
+  .result-cta-btn {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--crimson);
+    border: none;
+    border-radius: 30px;
+    padding: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+  .result-cta-btn:hover { background: var(--crimson-dark); }
+
+  .other-offers {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--cream-deep);
+  }
+  .other-offers-label {
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--grey);
+    font-weight: 600;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .other-offer-card {
+    margin-bottom: 18px;
+  }
+  .other-offer-card:last-child { margin-bottom: 0; }
+  .other-offer-kicker {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .other-offer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--crimson);
+    margin: 0 0 6px;
+  }
+  .other-offer-body {
+    font-size: 13.5px;
+    color: var(--grey);
+    line-height: 1.6;
+    margin: 0 0 14px;
+  }
+  .other-offer-btn {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--crimson);
+    background: transparent;
+    border: 1.5px solid var(--crimson);
+    border-radius: 30px;
+    padding: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+  }
+  .other-offer-btn:hover { background: var(--blush); }
+  .result-signoff {
+    text-align: center;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 14px;
+    margin-top: 28px;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 30px 22px; }
+    h1 { font-size: 30px; }
+    .q-text { font-size: 21px; }
+    .result-name { font-size: 28px; }
+  }
+
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="bg-mandala" id="bgMandala">
+  <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="98" stroke="#8B1E3F" stroke-width="0.6"/>
+    <circle cx="100" cy="100" r="78" stroke="#8B1E3F" stroke-width="0.6"/>
+    <circle cx="100" cy="100" r="58" stroke="#B08D57" stroke-width="0.6"/>
+    <g stroke="#8B1E3F" stroke-width="0.6">
+      <path d="M100 2 L100 198" /><path d="M2 100 L198 100" />
+      <path d="M29 29 L171 171" /><path d="M171 29 L29 171" />
+    </g>
+    <g>
+      <circle cx="100" cy="22" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="100" cy="178" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="22" cy="100" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="178" cy="100" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="49" cy="49" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="151" cy="49" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="49" cy="151" r="10" stroke="#B08D57" stroke-width="0.6"/>
+      <circle cx="151" cy="151" r="10" stroke="#B08D57" stroke-width="0.6"/>
+    </g>
+    <circle cx="100" cy="100" r="14" stroke="#8B1E3F" stroke-width="0.8"/>
+  </svg>
+</div>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div id="screen-intro">
+    <div class="eyebrow">Merely Mindful · Free Assessment</div>
+    <h1>Which Mother Are You?</h1>
+    <p class="sub">A short, honest assessment to help you understand where you actually are on your conception journey — and what your body and nervous system might be asking for next.</p>
+    <div class="card" style="text-align:center;">
+      <p style="font-family:'Cormorant Garamond',serif; font-size:19px; color:var(--charcoal); line-height:1.6; margin:0 0 28px;">
+        Fifteen questions — about your body, your story, and where you actually are. Six quiet minutes. One archetype that will likely make you feel completely seen.
+      </p>
+      <button class="btn-next" style="width:100%;" onclick="startQuiz()">Begin the assessment</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz" class="hidden">
+    <div class="card">
+      <div class="ring-track"><div class="ring-fill" id="ringFill"></div></div>
+      <div class="q-meta" id="qMeta">Question 1 of 15</div>
+      <p class="q-text" id="qText"></p>
+      <div class="options" id="qOptions"></div>
+      <div class="nav-row">
+        <button class="btn-back" id="btnBack" onclick="prevQuestion()">← Back</button>
+        <button class="btn-next" id="btnNext" disabled onclick="nextQuestion()">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EMAIL GATE -->
+  <div id="screen-gate" class="hidden">
+    <div class="card">
+      <div class="gate-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8B1E3F" stroke-width="1.4"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11z"/></svg>
+      </div>
+      <p class="gate-title">Your result is ready</p>
+      <p class="gate-sub">Tell me where to send it — your archetype, and what it actually means for your body right now.</p>
+      <label class="field-label">First name</label>
+      <input type="text" id="inputName" placeholder="Your name">
+      <p class="field-error" id="nameError"></p>
+      <label class="field-label">Email</label>
+      <input type="email" id="inputEmail" placeholder="you@email.com">
+      <p class="field-error" id="emailError"></p>
+      <button class="gate-cta" onclick="revealResult()">Reveal my archetype</button>
+      <p class="gate-note">No spam, ever — just your result and occasional notes from Oshika.</p>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="screen-result" class="hidden">
+    <div class="card">
+      <div class="result-eyebrow">Your archetype is</div>
+      <p class="result-name" id="resultName"></p>
+      <div class="result-body" id="resultBody"></div>
+      <hr class="result-divider">
+      <div class="result-cta-label" id="ctaLabel"></div>
+      <p class="result-cta-title" id="ctaTitle"></p>
+      <p class="result-cta-body" id="ctaBody"></p>
+      <a class="result-cta-btn" id="ctaBtn" href="#" target="_blank">Continue</a>
+      <div id="otherOffersWrap" class="other-offers hidden">
+        <p class="other-offers-label">Other ways to begin</p>
+        <div id="otherOffersList"></div>
+      </div>
+      <p class="result-signoff">Om Namah Shivay 🤍</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ---------- LEAD CAPTURE ENDPOINT ----------
+// Paste the Google Apps Script "Web app URL" here once deployed (see setup instructions).
+// Leave as empty string to disable submission (leads will only log to console).
+const LEAD_CAPTURE_URL = "https://script.google.com/macros/s/AKfycbwMuyHV1RiURDdIclA4oLn6uX9-Lm3S13i6iBJahIoMOKJDk9zLFV2kHS6X3jaGHhWUHA/exec";
+
+// ---------- QUESTION + SCORING MODEL ----------
+// Each option scores: D = Dreaming Mother, A = Awakened Mother, G = Grieving Mother
+const questions = [
+  {
+    meta: "Where you are right now",
+    text: "How long have you been actively trying to conceive — or preparing to?",
+    options: [
+      { label: "Haven't started trying yet — I want to prepare consciously first", score: { D: 2, A: 2, G: 0 }, intensity: "new" },
+      { label: "Just started — under 6 months", score: { D: 2, A: 1, G: 0 }, intensity: "new" },
+      { label: "6 months to a year", score: { D: 1, A: 1, G: 1 }, intensity: "active" },
+      { label: "1–2 years, with some setbacks along the way", score: { D: 0, A: 1, G: 2 }, intensity: "active" },
+      { label: "2+ years, including loss, IVF, or multiple rounds of trying", score: { D: 0, A: 0, G: 3 }, intensity: "complex" },
+    ]
+  },
+  {
+    meta: "Your inner world",
+    text: "When you think about your body and fertility right now, which feels most true?",
+    options: [
+      { label: "I don't fully trust it yet — I need proof it will work", score: { D: 3, A: 0, G: 0 } },
+      { label: "I trust it deeply, but something feels blocked or unclear", score: { D: 0, A: 3, G: 0 } },
+      { label: "I'm exhausted — I've stopped knowing what to feel", score: { D: 0, A: 0, G: 3 } },
+      { label: "I feel disconnected from it most days", score: { D: 1, A: 0, G: 2 } },
+    ]
+  },
+  {
+    meta: "A number, for context",
+    text: "What's your age right now?",
+    options: [
+      { label: "Under 30", score: { D: 1, A: 2, G: 0 } },
+      { label: "30–34", score: { D: 2, A: 1, G: 0 } },
+      { label: "35–39", score: { D: 2, A: 1, G: 1 } },
+      { label: "40 or over", score: { D: 1, A: 1, G: 2 } },
+    ]
+  },
+  {
+    meta: "What you've tried",
+    text: "What has most of your energy gone toward so far?",
+    options: [
+      { label: "Nothing yet — I'm still in the research and preparation stage", score: { D: 2, A: 2, G: 0 } },
+      { label: "Tracking, optimizing, doing everything 'right'", score: { D: 3, A: 0, G: 0 } },
+      { label: "Spiritual practice — meditation, breathwork, energy work", score: { D: 0, A: 3, G: 0 } },
+      { label: "Clinical rounds — tests, specialists, treatments", score: { D: 1, A: 0, G: 2 } },
+      { label: "Honestly, just trying to hold myself together", score: { D: 0, A: 0, G: 3 }, hopeless: 1 },
+    ]
+  },
+  {
+    meta: "Late at night",
+    text: "Which thought visits you most at 2am?",
+    options: [
+      { label: "\"Did I wait too long, doing everything else first?\"", score: { D: 3, A: 0, G: 0 } },
+      { label: "\"There has to be a deeper reason this hasn't happened yet.\"", score: { D: 0, A: 3, G: 0 } },
+      { label: "\"What if I never become a mother?\"", score: { D: 0, A: 0, G: 3 } },
+      { label: "\"Why is everyone else getting pregnant so easily?\"", score: { D: 1, A: 0, G: 2 } },
+    ]
+  },
+  {
+    meta: "Tests and numbers",
+    text: "When a doctor hands you a number — AMH, age, a percentage — what happens inside you?",
+    options: [
+      { label: "I haven't had any testing yet — I don't have numbers to react to", score: { D: 1, A: 2, G: 0 }, intensity: "new" },
+      { label: "I spiral. I need to know exactly where I stand", score: { D: 3, A: 0, G: 0 } },
+      { label: "I question it — I sense it's not the whole story", score: { D: 0, A: 3, G: 0 } },
+      { label: "I've heard so many numbers, they've stopped meaning anything", score: { D: 0, A: 0, G: 3 } },
+      { label: "I quietly grieve a little, every time", score: { D: 0, A: 1, G: 2 } },
+    ]
+  },
+  {
+    meta: "Your physical picture",
+    text: "Has a doctor identified any of the following for you or your partner? (Choose the one that fits most)",
+    options: [
+      { label: "Nothing yet — no diagnosis, no testing, just starting to look into it", score: { D: 1, A: 1, G: 0 }, intensity: "new" },
+      { label: "Low AMH or diminished ovarian reserve", score: { D: 1, A: 1, G: 2 }, intensity: "active" },
+      { label: "PCOS or irregular ovulation", score: { D: 2, A: 1, G: 1 }, intensity: "active" },
+      { label: "Endometriosis or fibroids", score: { D: 0, A: 1, G: 2 }, intensity: "active" },
+      { label: "Low sperm count or motility (partner factor)", score: { D: 1, A: 1, G: 1 }, intensity: "active" },
+      { label: "Recurrent infections (e.g. UTIs) or unexplained inflammation", score: { D: 0, A: 2, G: 1 }, intensity: "active" },
+      { label: "\"Unexplained\" — every test came back normal", score: { D: 0, A: 2, G: 2 }, intensity: "complex" },
+      { label: "Multiple diagnoses, or a complicated combination of the above", score: { D: 0, A: 0, G: 3 }, intensity: "complex" },
+    ]
+  },
+  {
+    meta: "A different kind of truth",
+    text: "If I told you this might not be just physical — what's your honest reaction?",
+    options: [
+      { label: "I want to believe that, but I need it explained scientifically first", score: { D: 3, A: 1, G: 0 } },
+      { label: "I already know. I've felt it for a while", score: { D: 0, A: 3, G: 0 } },
+      { label: "I'm too tired to think about anything beyond the physical right now", score: { D: 0, A: 0, G: 3 } },
+      { label: "It makes me hopeful and terrified at the same time", score: { D: 1, A: 1, G: 2 } },
+    ]
+  },
+  {
+    meta: "Who you are",
+    text: "Outside of fertility, how would people who know you describe you?",
+    options: [
+      { label: "High-achieving. Capable. The one who figures things out", score: { D: 3, A: 0, G: 0 } },
+      { label: "Deeply spiritual or intuitive, even if I don't always say it out loud", score: { D: 0, A: 3, G: 0 } },
+      { label: "Strong — though lately, quietly struggling", score: { D: 0, A: 0, G: 3 } },
+      { label: "Someone who's always taken care of everyone else first", score: { D: 2, A: 0, G: 1 } },
+    ]
+  },
+  {
+    meta: "What you're carrying",
+    text: "Is there a specific loss — a miscarriage, a failed round, a missed window — that you think about often?",
+    options: [
+      { label: "No — nothing like that has happened for me", score: { D: 2, A: 2, G: 0 }, intensity: "new" },
+      { label: "Not one specific moment — more a slow build of doubt", score: { D: 2, A: 1, G: 0 } },
+      { label: "No loss exactly, but a feeling that something deeper needs healing first", score: { D: 0, A: 3, G: 0 } },
+      { label: "Yes — and I don't think I've ever fully processed it", score: { D: 0, A: 0, G: 3 }, hopeless: 1 },
+      { label: "Yes, more than one — and some days I genuinely don't know how I'll keep going", score: { D: 0, A: 0, G: 3 }, hopeless: 2 },
+    ]
+  },
+  {
+    meta: "What runs in your family",
+    text: "When you think about the women in your family line — your mother, grandmother — what comes up?",
+    options: [
+      { label: "We don't really talk about this kind of thing", score: { D: 2, A: 1, G: 0 } },
+      { label: "I sense I'm carrying something of theirs — a pattern, a fear, a grief", score: { D: 0, A: 3, G: 1 } },
+      { label: "Some of them struggled too, and I'm scared of repeating it", score: { D: 0, A: 1, G: 3 } },
+      { label: "I've honestly never thought about it until now", score: { D: 2, A: 0, G: 0 } },
+    ]
+  },
+  {
+    meta: "Trying vs. preparing",
+    text: "Which phrase sits better with you: \"trying to conceive\" or \"preparing for motherhood\"?",
+    options: [
+      { label: "\"Trying\" — because that's exactly what it feels like, an effort", score: { D: 3, A: 0, G: 0 } },
+      { label: "\"Preparing\" — it feels closer to a calling than a task", score: { D: 0, A: 3, G: 0 } },
+      { label: "Neither, honestly. I just want it to stop being so hard", score: { D: 0, A: 0, G: 3 } },
+      { label: "\"Preparing\", but I haven't felt ready to fully claim that yet", score: { D: 1, A: 2, G: 0 } },
+    ]
+  },
+  {
+    meta: "What you need to hear",
+    text: "Which sentence lands hardest, right now, today?",
+    options: [
+      { label: "\"You are not behind. You were never given the full picture.\"", score: { D: 3, A: 0, G: 0 } },
+      { label: "\"You already know. It's time to trust what you know.\"", score: { D: 0, A: 3, G: 0 } },
+      { label: "\"Your heart has been carrying so much. It's allowed to rest.\"", score: { D: 0, A: 0, G: 3 } },
+      { label: "\"Nothing is wrong with you. Something is asking to be healed.\"", score: { D: 1, A: 1, G: 2 } },
+    ]
+  },
+  {
+    meta: "Right now",
+    text: "If support showed up for you today, what would feel most useful?",
+    options: [
+      { label: "A clear, structured plan I can actually follow", score: { D: 3, A: 0, G: 0 } },
+      { label: "A guided journey to align my body, mind, and spirit", score: { D: 0, A: 3, G: 0 } },
+      { label: "Someone to finally hold space for what I've been carrying", score: { D: 0, A: 0, G: 3 } },
+      { label: "Honestly — all three, in some order", score: { D: 1, A: 1, G: 1 } },
+    ]
+  },
+  {
+    meta: "How you want to be held",
+    text: "Right now, which of these feels closest to what you're ready for?",
+    options: [
+      { label: "I want to explore this quietly, on my own, before anything else", score: { D: 0, A: 1, G: 0 }, readiness: "self" },
+      { label: "I want some structure and guidance, but I'll do the work myself", score: { D: 1, A: 1, G: 0 }, readiness: "guided" },
+      { label: "I want a real container to walk through this in — with a group and a clear path", score: { D: 1, A: 1, G: 0 }, readiness: "contained" },
+      { label: "I don't want to do this alone anymore. I want someone with me, directly", score: { D: 0, A: 0, G: 1 }, readiness: "supported" },
+    ]
+  },
+];
+
+const archetypeContent = {
+  D: {
+    name: "The Dreaming Mother",
+    body: [
+      "You have lived multiple lifetimes in one big life. You've achieved everything — in your career, in your relationships, in the goals you set for yourself. You know exactly who you are and what you're capable of.",
+      "And yet here, in this one room — the fertility clinic, the waiting room, the 2am scroll — you find yourself doubting. Wondering if your body will actually support you the way your mind always has.",
+      "That's not a contradiction. It's a gap. Nobody ever taught you how to prepare for this the way you prepared for everything else. So you've been trying instead of preparing — and those are not the same thing.",
+      "You don't need to push harder. You need the missing 10% nobody gave you: how to bring your nervous system, your body, and your spirit into the same kind of alignment you've always brought to everything you've built."
+    ]
+  },
+  A: {
+    name: "The Awakened Mother",
+    body: [
+      "You already know there's nothing wrong with your body — even when the tests say otherwise. You've felt, for a while now, that this journey is asking for more than protocols and timelines.",
+      "You know that motherhood is your divine purpose. That the child you're calling in is meant to shift something — in your lineage, in your life, maybe in the wider world too.",
+      "You're aware of the toxins in your food, your products, your home. You're aware of the childhood patterns that, left unhealed, quietly pass themselves on. You know age is just a number, and your fertility lives in your radiant energy.",
+      "You're not confused about what's true. You're just standing at the threshold, ready to walk through it consciously instead of waiting for permission."
+    ]
+  },
+  G: {
+    name: "The Grieving Mother",
+    body: [
+      "You've been on this path for a while now. Rounds of trying. Maybe rounds of IVF, of loss, of tests that didn't give you the answers you needed. You've done everything in your hands — the diet, the lifestyle, the supplements, the protocols.",
+      "And still, something hasn't shifted. Not because you haven't done enough. Because the thing that needs healing was never only physical.",
+      "You're carrying suppressed energy — maybe from this lifetime, maybe from grief that never had anywhere to go, maybe from further back than you've ever considered. Your heart has been carrying so much, quietly, while the world kept asking you to just keep trying.",
+      "Pregnancy is not only medical. It's emotional. Hormonal. Neurological. Your body has not failed you — it has been waiting for the part of this story that no clinic ever addressed."
+    ]
+  }
+};
+
+// ---------- OFFER CONTENT (4 tiers) ----------
+// rank reflects depth of support (not price) — used to order the "other ways to begin" cards
+// logically around whichever offer is recommended, rather than randomly or by price.
+const offerContent = {
+  masterclass: {
+    rank: 0,
+    label: "A gentle place to start",
+    title: "The Free Masterclass + Conception Guide",
+    body: "A recorded masterclass, a free PDF guide, and guided meditations — everything you need to begin understanding your body's natural conditions for conception, at your own pace, with no pressure to do anything more than this yet.",
+    short: "Start quietly, on your own, with no pressure to do anything more than this yet.",
+    price: "€24",
+    link: "https://merelymindful.com/workshop.html"
+  },
+  portal: {
+    rank: 1,
+    label: "Your next step",
+    title: "The 9-Day Conception Portal",
+    body: "Nine self-paced recorded classes to guide you through a complete conscious conception reset — nervous system, womb, and ancestral healing, structured into nine days you can move through whenever you're ready.",
+    short: "A structured, self-paced reset you can move through in your own time.",
+    price: "€150",
+    link: "https://merelymindful.com/portal.html"
+  },
+  oneToOne: {
+    rank: 2,
+    label: "What you need right now",
+    title: "1:1 Support With Oshika",
+    body: "A direct, personal session built entirely around what you're carrying — a 60-minute call with Oshika, followed by a 30-day plan made specifically for your body and your story. This isn't a program you move through alone. This is someone sitting with you, one to one.",
+    short: "A 60-minute call with Oshika, plus a 30-day plan built around your story.",
+    price: "€111",
+    link: "https://merelymindful.com/consult.html"
+  },
+  program: {
+    rank: 3,
+    label: "Your next step",
+    title: "6 Weeks of Conscious Conception",
+    body: "A six-week guided container — live sessions, community, and a complete framework to restore your body's natural conditions for conception, walked through with structure and real support around you.",
+    short: "A full six-week container, with live sessions and community around you.",
+    price: "€1,500",
+    link: "https://merelymindful.com/programme.html"
+  }
+};
+
+
+
+// ---------- STATE ----------
+let currentQ = 0;
+let answers = new Array(questions.length).fill(null);
+let scores = { D: 0, A: 0, G: 0 };
+
+function startQuiz() {
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-quiz').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  document.getElementById('qMeta').textContent = q.meta + " · Question " + (currentQ + 1) + " of " + questions.length;
+  document.getElementById('qText').textContent = q.text;
+  const pct = Math.round(((currentQ) / questions.length) * 100);
+  document.getElementById('ringFill').style.width = pct + "%";
+
+  const optWrap = document.getElementById('qOptions');
+  optWrap.innerHTML = "";
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
+    btn.textContent = opt.label;
+    btn.onclick = () => selectOption(i);
+    optWrap.appendChild(btn);
+  });
+
+  document.getElementById('btnBack').disabled = currentQ === 0;
+  document.getElementById('btnNext').disabled = answers[currentQ] === null;
+  document.getElementById('btnNext').textContent = currentQ === questions.length - 1 ? "See my result" : "Continue";
+
+  const mandala = document.getElementById('bgMandala');
+  mandala.style.transform = "rotate(" + (currentQ * 14) + "deg) scale(" + (1 + currentQ * 0.02) + ")";
+}
+
+function selectOption(i) {
+  answers[currentQ] = i;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === null) return;
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function prevQuestion() {
+  if (currentQ > 0) {
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function finishQuiz() {
+  scores = { D: 0, A: 0, G: 0 };
+  const intensityCount = { new: 0, active: 0, complex: 0 };
+  let hopelessScore = 0;
+  let readiness = null;
+  questions.forEach((q, i) => {
+    const chosen = q.options[answers[i]];
+    scores.D += chosen.score.D;
+    scores.A += chosen.score.A;
+    scores.G += chosen.score.G;
+    if (chosen.intensity) intensityCount[chosen.intensity]++;
+    if (chosen.hopeless) hopelessScore += chosen.hopeless;
+    if (chosen.readiness) readiness = chosen.readiness;
+  });
+  window._intensityCount = intensityCount;
+  window._hopelessScore = hopelessScore;
+  window._readiness = readiness;
+  document.getElementById('screen-quiz').classList.add('hidden');
+  document.getElementById('screen-gate').classList.remove('hidden');
+}
+
+function getIntensityLine(level) {
+  const lines = {
+    new: "And here's what matters most: you are right at the beginning. Nothing has gone wrong yet — which means you have the rare chance to prepare consciously, instead of reacting to a crisis later.",
+    active: "You're in the thick of it right now — actively trying, actively searching, actively tired of half-answers. This is exactly the stage where the right preparation changes everything that comes next.",
+    complex: "You've been carrying this for a long time, through more rounds and more disappointment than anyone outside this should ever ask of you. What you need now isn't more effort. It's a different kind of support."
+  };
+  return lines[level] || "";
+}
+
+function getIntensityLevel(intensityCount) {
+  if (intensityCount.complex >= intensityCount.active && intensityCount.complex >= intensityCount.new) return 'complex';
+  if (intensityCount.active >= intensityCount.new) return 'active';
+  return 'new';
+}
+
+// Decide which of the 4 offers to show.
+// Severity (hopelessness + complex intensity) can only push the tier UP, never down below stated readiness.
+function getOfferTier(intensityLevel, hopelessScore, readiness) {
+  // Forced route: real hopelessness signal, regardless of stated readiness
+  if (hopelessScore >= 2) return 'oneToOne';
+  if (hopelessScore >= 1 && intensityLevel === 'complex') return 'oneToOne';
+
+  const readinessRank = { self: 0, guided: 1, contained: 2, supported: 3 };
+  const intensityRank = { new: 0, active: 1, complex: 2 };
+  const rank = Math.max(readinessRank[readiness] ?? 0, intensityRank[intensityLevel] ?? 0);
+
+  if (rank >= 3) return 'oneToOne';
+  if (rank === 2) return 'program';
+  if (rank === 1) return 'portal';
+  return 'masterclass';
+}
+
+function revealResult() {
+  const nameInput = document.getElementById('inputName');
+  const emailInput = document.getElementById('inputEmail');
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+
+  // Reset error state
+  nameInput.style.borderColor = '';
+  emailInput.style.borderColor = '';
+  nameError.classList.remove('show');
+  emailError.classList.remove('show');
+
+  let hasError = false;
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!name) {
+    nameInput.style.borderColor = '#8B1E3F';
+    nameError.textContent = "Please share your name.";
+    nameError.classList.add('show');
+    hasError = true;
+  }
+
+  if (!email) {
+    emailInput.style.borderColor = '#8B1E3F';
+    emailError.textContent = "Please enter your email.";
+    emailError.classList.add('show');
+    hasError = true;
+  } else if (!emailPattern.test(email)) {
+    emailInput.style.borderColor = '#8B1E3F';
+    emailError.textContent = "That email doesn't look quite right — please check it.";
+    emailError.classList.add('show');
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  // Determine winning archetype, tie-break toward emotional-state question (index 2: "your inner world")
+  let winner = 'D';
+  if (scores.A >= scores.D && scores.A >= scores.G) winner = 'A';
+  if (scores.G >= scores.D && scores.G >= scores.A) winner = 'G';
+  if (scores.D === scores.A && scores.D === scores.G) {
+    const tieBreak = questions[2].options[answers[2]];
+    if (tieBreak.score.A > tieBreak.score.D && tieBreak.score.A > tieBreak.score.G) winner = 'A';
+    else if (tieBreak.score.G > tieBreak.score.D && tieBreak.score.G > tieBreak.score.A) winner = 'G';
+    else winner = 'D';
+  }
+
+  const content = archetypeContent[winner];
+  const intensityLevel = getIntensityLevel(window._intensityCount || { new: 0, active: 0, complex: 0 });
+  const offerTier = getOfferTier(intensityLevel, window._hopelessScore || 0, window._readiness);
+  const offer = offerContent[offerTier];
+
+  document.getElementById('resultName').textContent = content.name;
+  const bodyWrap = document.getElementById('resultBody');
+  bodyWrap.innerHTML = "";
+  content.body.forEach(p => {
+    const el = document.createElement('p');
+    el.textContent = p;
+    bodyWrap.appendChild(el);
+  });
+  const intensityEl = document.createElement('p');
+  intensityEl.textContent = getIntensityLine(intensityLevel);
+  bodyWrap.appendChild(intensityEl);
+
+  document.getElementById('ctaLabel').textContent = offer.label;
+  document.getElementById('ctaTitle').textContent = offer.title + " — " + offer.price;
+  document.getElementById('ctaBody').textContent = offer.body;
+  document.getElementById('ctaBtn').href = offer.link;
+
+  // Show the other 3 offers underneath as quiet cards, ordered by how close their
+  // depth of support is to the recommended one — so the list reads as a logical
+  // path outward from the recommendation, not a random or strictly price-based list.
+  const allTiers = ['masterclass', 'portal', 'oneToOne', 'program'];
+  const recommendedRank = offer.rank;
+  const remainingTiers = allTiers
+    .filter(t => t !== offerTier)
+    .sort((a, b) => Math.abs(offerContent[a].rank - recommendedRank) - Math.abs(offerContent[b].rank - recommendedRank));
+
+  const otherOffersWrap = document.getElementById('otherOffersWrap');
+  const otherOffersList = document.getElementById('otherOffersList');
+  otherOffersList.innerHTML = "";
+  remainingTiers.forEach(tier => {
+    const o = offerContent[tier];
+    const card = document.createElement('div');
+    card.className = 'other-offer-card';
+    card.innerHTML =
+      '<p class="other-offer-kicker">' + o.price + '</p>' +
+      '<p class="other-offer-title">' + o.title + '</p>' +
+      '<p class="other-offer-body">' + o.short + '</p>' +
+      '<a class="other-offer-btn" href="' + o.link + '" target="_blank">Learn more</a>';
+    otherOffersList.appendChild(card);
+  });
+  otherOffersWrap.classList.remove('hidden');
+
+  const leadData = {
+    name, email, winner, scores,
+    intensityLevel, offerTier,
+    hopelessScore: window._hopelessScore,
+    readiness: window._readiness
+  };
+  console.log('Lead captured:', leadData);
+
+  if (LEAD_CAPTURE_URL) {
+    fetch(LEAD_CAPTURE_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(leadData)
+    }).catch(err => console.error('Lead capture failed:', err));
+  }
+
+  document.getElementById('screen-gate').classList.add('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
