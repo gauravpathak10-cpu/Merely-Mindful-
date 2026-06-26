@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply for the September Cohort — Merely Mindful</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --crimson:#8B1A1A;--crimson-deep:#5C0F0F;--gold:#C9A84C;--gold-light:#E8C97A;
+  --ivory:#FAF7F2;--ivory-warm:#F5EDE0;--ivory-dark:#EDE0CF;
+  --charcoal:#1C1410;--text-mid:#4A3728;--text-muted:#7A6458;
+  --serif:"Cormorant Garamond",Georgia,serif;--sans:"Jost",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--charcoal);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+nav{padding:18px 64px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,247,242,.97);border-bottom:1px solid rgba(201,168,76,.14);position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+.logo{font-family:var(--serif);font-size:22px;font-weight:300;font-style:italic;color:var(--crimson-deep);text-decoration:none}
+.nav-back{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--crimson)}
+.btn-crimson{display:inline-block;background:var(--crimson);color:var(--ivory);padding:17px 44px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+.btn-crimson:hover{background:var(--crimson-deep);transform:translateY(-2px)}
+.btn-crimson:disabled{opacity:.5;cursor:default;transform:none}
+.s-label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+.s-title{font-family:var(--serif);font-size:clamp(32px,3.8vw,52px);font-weight:300;color:var(--crimson-deep);line-height:1.12;margin-bottom:18px}
+.s-title em{font-style:italic}
+.mw{max-width:760px;margin:0 auto}
+.sp{padding:96px 80px}
+.sp-sm{padding:64px 80px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.reveal.visible{opacity:1;transform:none}
+.micro{font-size:12px;color:var(--text-muted);margin-top:10px;letter-spacing:.04em}
+footer{background:var(--charcoal);padding:48px 80px}
+.footer-inner{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(250,247,242,.07)}
+.f-brand{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ivory);margin-bottom:8px}
+.f-links{display:flex;gap:24px;flex-wrap:wrap}
+.f-links a{font-size:12px;color:rgba(250,247,242,.38);text-decoration:none;transition:color .2s;letter-spacing:.06em}
+.f-links a:hover{color:var(--gold-light)}
+.footer-disc{max-width:1040px;margin:20px auto 0;font-size:11px;color:rgba(250,247,242,.18);line-height:1.8}
+@media(max-width:900px){
+  nav{padding:16px 20px}
+  .sp{padding:64px 24px}
+  .sp-sm{padding:48px 24px}
+  footer{padding:40px 24px}
+  .footer-inner{flex-direction:column;gap:24px}
+}
+
+/* ── APPLICATION FORM ── */
+.app-hero{text-align:center;padding-bottom:8px}
+.progress-track{height:3px;background:var(--ivory-dark);border-radius:3px;margin:0 auto 8px;max-width:760px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold) 0%,var(--crimson) 100%);border-radius:3px;transition:width .4s ease;width:0%}
+.progress-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-align:center;margin-bottom:36px}
+.app-card{background:#fff;border:1px solid rgba(201,168,76,.18);padding:48px 52px;box-shadow:0 4px 28px rgba(28,20,16,.05)}
+.q-block{margin-bottom:30px}
+.q-block:last-child{margin-bottom:0}
+.q-label{font-family:var(--serif);font-size:21px;color:var(--crimson-deep);font-weight:400;line-height:1.4;margin-bottom:6px;display:block}
+.q-help{font-size:13px;color:var(--text-muted);margin-bottom:14px;line-height:1.6}
+.q-input,.q-textarea,.q-select{
+  width:100%;font-family:var(--sans);font-size:15px;color:var(--charcoal);
+  padding:13px 16px;border:1.5px solid var(--ivory-dark);border-radius:6px;
+  background:var(--ivory);transition:border-color .2s ease,background .2s ease;
+}
+.q-input:focus,.q-textarea:focus,.q-select:focus{outline:none;border-color:var(--gold);background:#fff}
+.q-textarea{min-height:96px;resize:vertical;font-family:var(--sans)}
+.q-options{display:flex;flex-direction:column;gap:10px}
+.q-option{
+  display:flex;align-items:center;gap:12px;padding:14px 18px;
+  border:1.5px solid var(--ivory-dark);border-radius:6px;background:var(--ivory);
+  cursor:pointer;transition:all .2s ease;font-size:14.5px;color:var(--text-mid);
+}
+.q-option:hover{border-color:var(--gold-light);background:#fff}
+.q-option.selected{border-color:var(--crimson);background:rgba(201,168,76,.08)}
+.q-option input{accent-color:var(--crimson)}
+.field-error{font-size:12px;color:var(--crimson);margin-top:6px;display:none}
+.field-error.show{display:block}
+.app-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:40px}
+.btn-back-step{font-family:var(--sans);font-size:13px;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:8px 4px}
+.btn-back-step:disabled{opacity:0;cursor:default}
+
+/* Confirmation screen */
+.confirm-mark{width:54px;height:54px;border-radius:50%;border:1px solid rgba(201,168,76,.4);display:flex;align-items:center;justify-content:center;margin:0 auto 26px}
+.confirm-mark span{width:7px;height:7px;border-radius:50%;background:var(--gold)}
+
+@media(max-width:900px){
+  .app-card{padding:32px 26px}
+  .q-label{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Merely Mindful</a>
+  <a href="programme.html" class="nav-back">← Back to Programme</a>
+</nav>
+
+<!-- INTRO -->
+<div class="sp app-hero" id="screen-intro">
+  <div class="mw reveal" style="visibility:visible;opacity:1;transform:none">
+    <span class="s-label">September Cohort · Conscious Conception Programme</span>
+    <h1 class="s-title">Before we begin,<br>I want to <em>truly know you.</em></h1>
+    <p style="font-size:16px;color:var(--text-muted);max-width:560px;margin:0 auto 8px;line-height:1.9">This programme is a 6-week container for 11 women — not a checkout page. Before any spot is confirmed, I read every application myself.</p>
+    <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:var(--text-mid);max-width:480px;margin:24px auto 40px;line-height:1.65">A few honest questions. About eight minutes. If your application feels aligned, I'll personally invite you to book a call with me as the next step.</p>
+    <button class="btn-crimson" onclick="startApp()">Begin My Application →</button>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="sp-sm hidden" id="screen-form" style="display:none">
+  <div class="mw">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <p class="progress-label" id="progressLabel">Question 1 of 10</p>
+    <div class="app-card">
+      <div id="questionContainer"></div>
+      <div class="app-nav-row">
+        <button class="btn-back-step" id="btnBack" onclick="prevQ()">← Back</button>
+        <button class="btn-crimson" id="btnNext" onclick="nextQ()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMATION -->
+<div class="sp hidden" id="screen-confirm" style="display:none">
+  <div class="mw" style="text-align:center">
+    <div class="confirm-mark"><span></span></div>
+    <span class="s-label">Application received</span>
+    <h2 class="s-title">Thank you for trusting<br>me with <em>your story.</em></h2>
+    <p style="font-size:16px;color:var(--text-muted);max-width:520px;margin:0 auto 16px;line-height:1.9">I read every application personally — not a team, not a bot. This takes me a little time, because it deserves real attention.</p>
+    <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:var(--text-mid);max-width:480px;margin:0 auto 40px;line-height:1.65">If your application feels aligned with this cohort, you'll receive a personal invitation by email to book a 1:1 call with me — that call is where we'll confirm your place together.</p>
+    <a href="index.html" class="btn-crimson" style="background:var(--gold);color:var(--crimson-deep)">Return to Home →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="f-brand">Merely Mindful</div>
+      <p style="font-size:13px;color:rgba(250,247,242,.38);max-width:280px;line-height:1.7">Pioneering the Conscious Conception Movement. Enniscorthy, Ireland · Worldwide.</p>
+    </div>
+    <div class="f-links">
+      <a href="index.html">Home</a>
+      <a href="consult.html">1:1 Consult</a>
+      <a href="workshop.html">Workshop</a>
+      <a href="programme.html">Programme</a>
+      <a href="index.html#birth-workshop">Birth Workshop</a>
+      <a href="https://www.instagram.com/merelymindful" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <p class="footer-disc">Oshikha is a certified Hormonal Health Coach, Celtic Breathwork Facilitator, and Conscious Conception Guide (IICT & CPD accredited). This work supports your body — it does not replace medical care. Always consult a qualified healthcare provider when needed.</p>
+</footer>
+
+<script>
+// ── LEAD CAPTURE ENDPOINT ──
+// Use the SAME Google Apps Script Web App URL as the assessment page —
+// one combined script routes both submissions to their correct sheet tab
+// based on the "source" field already included in this page's payload below.
+const APPLICATION_ENDPOINT_URL = "";
+
+const questions = [
+  {
+    id: "name",
+    label: "Let's start with your name.",
+    type: "text",
+    placeholder: "Your full name",
+    required: true
+  },
+  {
+    id: "email",
+    label: "And the best email to reach you on.",
+    type: "email",
+    placeholder: "you@email.com",
+    required: true
+  },
+  {
+    id: "timeline",
+    label: "How long have you been trying to conceive?",
+    type: "select",
+    required: true,
+    options: [
+      "Less than 6 months",
+      "6 to 12 months",
+      "1 to 2 years",
+      "More than 2 years"
+    ]
+  },
+  {
+    id: "current_stage",
+    label: "Where are you right now on your journey?",
+    type: "radio",
+    required: true,
+    options: [
+      "I'm actively trying to conceive, and it is not happening",
+      "I'm preparing my body and mind before trying",
+      "I have been through IVF or pregnancy loss and feel lost",
+      "I know something needs to change, but I'm not sure where to start"
+    ]
+  },
+  {
+    id: "whats_going_on",
+    label: "In your own words — what is really going on for you right now? What made you fill in this form today?",
+    help: "This is the heart of your application — please be as honest as you're comfortable being.",
+    type: "textarea",
+    placeholder: "Take your time with this one...",
+    required: true
+  },
+  {
+    id: "why_mind_body_soul",
+    label: "What is drawing you to a mind, body, soul approach rather than conventional fertility treatment alone?",
+    type: "textarea",
+    placeholder: "...",
+    required: true
+  },
+  {
+    id: "commitment",
+    label: "This programme runs 2 live sessions a week for 6 weeks. Can you genuinely commit to that rhythm right now?",
+    type: "radio",
+    required: true,
+    options: [
+      "Yes — I can commit to this fully",
+      "Mostly — I may miss the occasional session",
+      "I'm not sure yet"
+    ]
+  },
+  {
+    id: "partner_support",
+    label: "Is your partner aware of and supportive of you doing this work?",
+    type: "radio",
+    required: true,
+    options: [
+      "Yes, fully supportive and involved",
+      "Aware, but not deeply involved",
+      "Not yet aware",
+      "This doesn't apply to my situation"
+    ]
+  },
+  {
+    id: "ready_to_begin",
+    label: "Are you ready to begin the programme in September, 2026?",
+    type: "radio",
+    required: true,
+    options: [
+      "Yes",
+      "Not yet"
+    ]
+  },
+  {
+    id: "investment_readiness",
+    label: "This programme is a significant 6-week investment of time, energy, and resources. Where are you with that right now?",
+    type: "radio",
+    required: true,
+    options: [
+      "I'm fully ready to invest in this, financially and otherwise",
+      "I believe I can make it work, but want to talk it through first",
+      "I'm exploring whether this is realistic for me right now"
+    ]
+  },
+  {
+    id: "anything_else",
+    label: "Is there anything else you'd like me to know before I read your application?",
+    type: "textarea",
+    placeholder: "Optional — only if there's something on your heart",
+    required: false
+  },
+  {
+    id: "how_heard",
+    label: "Last thing — how did you first hear about Merely Mindful?",
+    type: "select",
+    required: true,
+    options: [
+      "Instagram",
+      "A friend or family member",
+      "Google search",
+      "A podcast or interview",
+      "Another client's recommendation",
+      "Something else"
+    ]
+  }
+];
+
+let currentQ = 0;
+const answers = {};
+
+function startApp() {
+  document.getElementById("screen-intro").style.display = "none";
+  document.getElementById("screen-form").style.display = "block";
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const container = document.getElementById("questionContainer");
+  const pct = Math.round((currentQ / questions.length) * 100);
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent = "Question " + (currentQ + 1) + " of " + questions.length;
+
+  let inner = '<div class="q-block">';
+  inner += '<label class="q-label">' + q.label + '</label>';
+  if (q.help) inner += '<p class="q-help">' + q.help + '</p>';
+
+  const existing = answers[q.id] || "";
+
+  if (q.type === "text" || q.type === "email") {
+    inner += '<input class="q-input" type="' + q.type + '" id="qInput" placeholder="' + (q.placeholder || "") + '" value="' + existing.replace(/"/g, "&quot;") + '">';
+  } else if (q.type === "textarea") {
+    inner += '<textarea class="q-textarea" id="qInput" placeholder="' + (q.placeholder || "") + '">' + existing + '</textarea>';
+  } else if (q.type === "select") {
+    inner += '<select class="q-select" id="qInput"><option value="" disabled ' + (existing ? "" : "selected") + '>Select one...</option>';
+    q.options.forEach(opt => {
+      inner += '<option value="' + opt.replace(/"/g, "&quot;") + '" ' + (existing === opt ? "selected" : "") + '>' + opt + '</option>';
+    });
+    inner += '</select>';
+  } else if (q.type === "radio") {
+    inner += '<div class="q-options" id="qInput">';
+    q.options.forEach((opt, i) => {
+      const checked = existing === opt ? "checked" : "";
+      const selClass = existing === opt ? " selected" : "";
+      inner += '<label class="q-option' + selClass + '" onclick="selectRadio(this)"><input type="radio" name="radioGroup" value="' + opt.replace(/"/g, "&quot;") + '" ' + checked + '>' + opt + '</label>';
+    });
+    inner += '</div>';
+  }
+
+  inner += '<p class="field-error" id="qError">Please fill this in before continuing.</p>';
+  inner += '</div>';
+  container.innerHTML = inner;
+
+  document.getElementById("btnBack").disabled = currentQ === 0;
+  document.getElementById("btnNext").textContent = currentQ === questions.length - 1 ? "Submit My Application →" : "Continue";
+}
+
+function selectRadio(label) {
+  document.querySelectorAll(".q-option").forEach(el => el.classList.remove("selected"));
+  label.classList.add("selected");
+}
+
+function getCurrentValue() {
+  const q = questions[currentQ];
+  if (q.type === "radio") {
+    const checked = document.querySelector('input[name="radioGroup"]:checked');
+    return checked ? checked.value : "";
+  }
+  const el = document.getElementById("qInput");
+  return el ? el.value.trim() : "";
+}
+
+function nextQ() {
+  const q = questions[currentQ];
+  const value = getCurrentValue();
+
+  if (q.required && !value) {
+    document.getElementById("qError").classList.add("show");
+    return;
+  }
+  if (q.type === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    const errEl = document.getElementById("qError");
+    errEl.textContent = "That email doesn't look quite right — please check it.";
+    errEl.classList.add("show");
+    return;
+  }
+
+  answers[q.id] = value;
+
+  if (currentQ < questions.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    submitApplication();
+  }
+}
+
+function prevQ() {
+  if (currentQ > 0) {
+    const q = questions[currentQ];
+    answers[q.id] = getCurrentValue();
+    currentQ--;
+    renderQuestion();
+  }
+}
+
+function submitApplication() {
+  const btn = document.getElementById("btnNext");
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  const payload = Object.assign({ submittedAt: new Date().toISOString(), source: "programme_application" }, answers);
+  console.log("Programme application submitted:", payload);
+
+  if (APPLICATION_ENDPOINT_URL) {
+    fetch(APPLICATION_ENDPOINT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload)
+    }).catch(err => console.error("Application submission failed:", err))
+      .finally(showConfirmation);
+  } else {
+    showConfirmation();
+  }
+}
+
+function showConfirmation() {
+  document.getElementById("screen-form").style.display = "none";
+  document.getElementById("screen-confirm").style.display = "block";
+}
+</script>
+</body>
+</html>
