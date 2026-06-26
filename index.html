@@ -482,6 +482,64 @@ footer{background:var(--charcoal);padding:56px 80px}
 @media(max-width:600px){
   #exitModal .m-body{padding:44px 28px 36px}
 }
+
+/* ── MINIMIZED ASSESSMENT TAB ── */
+.exit-tab{
+  display:none;
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:450;
+  background:var(--ivory);
+  border:1px solid rgba(201,168,76,.35);
+  border-radius:50px;
+  box-shadow:0 10px 32px rgba(28,20,16,.18);
+  align-items:center;
+  padding:4px 6px 4px 4px;
+  animation:exit-tab-in .4s ease;
+}
+.exit-tab.show{display:flex}
+@keyframes exit-tab-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.exit-tab-link{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 16px 9px 10px;
+  text-decoration:none;
+  border-radius:40px;
+  transition:background .2s ease;
+}
+.exit-tab-link:hover{background:rgba(201,168,76,.1)}
+.exit-tab-mark{
+  width:26px;height:26px;flex-shrink:0;
+  border-radius:50%;
+  border:1px solid rgba(201,168,76,.5);
+  display:flex;align-items:center;justify-content:center;
+  animation:pulse-ring 4.5s ease-in-out infinite;
+}
+.exit-tab-mark span{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.exit-tab-text{
+  font-family:var(--sans);
+  font-size:12.5px;
+  letter-spacing:.02em;
+  color:var(--crimson-deep);
+  font-weight:500;
+  white-space:nowrap;
+}
+.exit-tab-close{
+  width:22px;height:22px;flex-shrink:0;
+  border:none;background:transparent;
+  color:var(--charcoal);opacity:.4;
+  font-size:16px;line-height:1;
+  cursor:pointer;border-radius:50%;
+  transition:opacity .2s ease,background .2s ease;
+}
+.exit-tab-close:hover{opacity:.9;background:rgba(28,20,16,.06)}
+@media(max-width:600px){
+  .exit-tab{right:14px;bottom:14px;left:14px;justify-content:space-between}
+  .exit-tab-link{flex:1}
+  .exit-tab-text{white-space:normal;font-size:12px;line-height:1.3}
+}
 </style>
 </head>
 <body>
@@ -1143,6 +1201,15 @@ footer{background:var(--charcoal);padding:56px 80px}
   </div>
 </div>
 
+<!-- MINIMIZED ASSESSMENT TAB -->
+<div id="exitTab" class="exit-tab">
+  <button class="exit-tab-close" onclick="closeExitTab(event)" aria-label="Dismiss">×</button>
+  <a href="/assessment" class="exit-tab-link" onclick="markExitShown()">
+    <span class="exit-tab-mark"><span></span></span>
+    <span class="exit-tab-text">Free Fertility Clarity Assessment</span>
+  </a>
+</div>
+
 <!-- COHORT MODAL -->
 <div class="modal-overlay" id="cModal">
   <div class="modal">
@@ -1283,14 +1350,23 @@ function toggleFaq(btn) {
 //  - Mobile/all: 45-second time-on-page delay
 //  - Mobile/all: back-button press is intercepted once
 //  - Mobile/all: visitor scrolls down to the FAQ section
+// Closing the full popup minimizes it into a small bottom-right tab rather than
+// dismissing it entirely, so it stays one click away for the rest of the session.
+// The tab itself has its own × to fully dismiss it if the visitor really doesn't want it.
 (function () {
   const exitModal = document.getElementById("exitModal");
+  const exitTab = document.getElementById("exitTab");
   if (!exitModal) return;
 
   const SESSION_KEY = "mm_exit_shown";
+  const TAB_DISMISSED_KEY = "mm_exit_tab_dismissed";
 
   function alreadyShown() {
     return sessionStorage.getItem(SESSION_KEY) === "1";
+  }
+
+  function tabDismissed() {
+    return sessionStorage.getItem(TAB_DISMISSED_KEY) === "1";
   }
 
   function anyOtherModalOpen() {
@@ -1307,18 +1383,44 @@ function toggleFaq(btn) {
     sessionStorage.setItem(SESSION_KEY, "1");
   }
 
+  function showExitTab() {
+    if (!exitTab || tabDismissed()) return;
+    exitTab.classList.add("show");
+  }
+
+  function hideExitTab() {
+    if (!exitTab) return;
+    exitTab.classList.remove("show");
+  }
+
   window.markExitShown = function () {
     sessionStorage.setItem(SESSION_KEY, "1");
+    hideExitTab();
   };
 
+  // Closing the full popup minimizes it into the corner tab instead of losing it entirely.
   window.closeExit = function () {
     exitModal.classList.remove("open");
     document.body.style.overflow = "";
+    showExitTab();
+  };
+
+  // The tab's own × fully dismisses it for the rest of this session.
+  window.closeExitTab = function (e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    sessionStorage.setItem(TAB_DISMISSED_KEY, "1");
+    hideExitTab();
   };
 
   exitModal.addEventListener("click", function (e) {
     if (e.target === exitModal) window.closeExit();
   });
+
+  // If the modal already fired earlier in this session (e.g. on a previous page),
+  // surface the tab immediately rather than waiting for another trigger.
+  if (alreadyShown() && !tabDismissed()) {
+    showExitTab();
+  }
 
   // Trigger 1 — desktop cursor exit-intent: fast upward movement near top of viewport
   document.addEventListener("mouseout", function (e) {
