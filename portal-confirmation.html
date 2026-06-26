@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're In — 9-Day Conception Portal — Merely Mindful</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --crimson:#8B1A1A;--crimson-deep:#5C0F0F;--gold:#C9A84C;--gold-light:#E8C97A;
+  --ivory:#FAF7F2;--ivory-warm:#F5EDE0;--ivory-dark:#EDE0CF;
+  --charcoal:#1C1410;--text-mid:#4A3728;--text-muted:#7A6458;
+  --serif:"Cormorant Garamond",Georgia,serif;--sans:"Jost",sans-serif;
+  --whatsapp:#3FA046;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ivory);color:var(--charcoal);font-family:var(--sans);font-weight:300;line-height:1.7;overflow-x:hidden}
+@keyframes fade-up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.08);opacity:.7}}
+nav{padding:18px 64px;display:flex;justify-content:space-between;align-items:center;background:rgba(250,247,242,.97);border-bottom:1px solid rgba(201,168,76,.14);position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
+.logo{font-family:var(--serif);font-size:22px;font-weight:300;font-style:italic;color:var(--crimson-deep);text-decoration:none}
+.nav-back{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--crimson)}
+.btn-crimson{display:inline-block;background:var(--crimson);color:var(--ivory);padding:17px 44px;font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+.btn-crimson:hover{background:var(--crimson-deep);transform:translateY(-2px)}
+.s-label{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
+.s-title{font-family:var(--serif);font-size:clamp(32px,3.8vw,52px);font-weight:300;color:var(--crimson-deep);line-height:1.12;margin-bottom:18px}
+.s-title em{font-style:italic}
+.mw{max-width:720px;margin:0 auto}
+.sp{padding:96px 80px}
+.sp-sm{padding:56px 80px}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s ease}
+.reveal.visible{opacity:1;transform:none}
+footer{background:var(--charcoal);padding:48px 80px}
+.footer-inner{max-width:1040px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:40px;padding-bottom:32px;border-bottom:1px solid rgba(250,247,242,.07)}
+.f-brand{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ivory);margin-bottom:8px}
+.f-links{display:flex;gap:24px;flex-wrap:wrap}
+.f-links a{font-size:12px;color:rgba(250,247,242,.38);text-decoration:none;transition:color .2s;letter-spacing:.06em}
+.f-links a:hover{color:var(--gold-light)}
+.footer-disc{max-width:1040px;margin:20px auto 0;font-size:11px;color:rgba(250,247,242,.18);line-height:1.8}
+@media(max-width:900px){
+  nav{padding:16px 20px}
+  .sp{padding:64px 24px}
+  .sp-sm{padding:44px 24px}
+  footer{padding:40px 24px}
+  .footer-inner{flex-direction:column;gap:24px}
+}
+
+/* ── CONFIRMATION PAGE ── */
+.confirm-mark{width:60px;height:60px;border-radius:50%;border:1px solid rgba(201,168,76,.45);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;animation:pulse-ring 4.5s ease-in-out infinite}
+.confirm-mark span{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.hero-block{text-align:center}
+.journey-date{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--ivory-warm);border:1px solid rgba(201,168,76,.3);
+  border-radius:40px;padding:10px 22px;margin:8px auto 36px;
+  font-family:var(--sans);font-size:13px;color:var(--crimson-deep);font-weight:500;letter-spacing:.02em;
+}
+.journey-date .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(139,26,26,.07);margin:48px 0}
+.action-card{background:var(--ivory);padding:40px 32px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.action-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.action-icon svg{width:22px;height:22px}
+.action-title{font-family:var(--serif);font-size:21px;color:var(--crimson-deep);margin-bottom:8px;font-weight:400}
+.action-desc{font-size:13.5px;color:var(--text-muted);line-height:1.7;margin-bottom:22px;max-width:240px}
+.action-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  padding:14px 26px;border-radius:30px;text-decoration:none;transition:all .25s;
+}
+.action-btn.calendar{background:var(--crimson);color:var(--ivory)}
+.action-btn.calendar:hover{background:var(--crimson-deep);transform:translateY(-2px)}
+.action-btn.whatsapp{background:var(--whatsapp);color:#fff}
+.action-btn.whatsapp:hover{background:#368a3c;transform:translateY(-2px)}
+
+.email-note{
+  text-align:center;font-family:var(--serif);font-style:italic;font-size:16px;
+  color:var(--text-mid);max-width:480px;margin:0 auto 8px;line-height:1.75;
+}
+.zoom-direct{
+  text-align:center;margin-top:36px;padding-top:28px;border-top:1px solid var(--ivory-dark);
+}
+.zoom-direct p{font-size:12.5px;color:var(--text-muted);margin-bottom:10px;letter-spacing:.02em}
+.zoom-direct a{font-size:13px;color:var(--crimson);text-decoration:none;border-bottom:1px solid rgba(139,26,26,.3);word-break:break-all}
+
+@media(max-width:700px){
+  .action-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Merely Mindful</a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="sp hero-block">
+  <div class="mw reveal" style="visibility:visible;opacity:1;transform:none">
+    <div class="confirm-mark"><span></span></div>
+    <span class="s-label">Payment confirmed</span>
+    <h1 class="s-title">Thank you,<br><em>Mindful Mama.</em></h1>
+    <p style="font-size:16px;color:var(--text-muted);max-width:480px;margin:0 auto 4px;line-height:1.9">You're in. Your 9-Day Conception Portal journey is confirmed.</p>
+
+    <div class="journey-date">
+      <span class="dot"></span>
+      Your journey begins 15th July, 5:00pm Irish time
+    </div>
+
+    <p style="font-family:var(--serif);font-size:18px;font-style:italic;color:var(--text-mid);max-width:480px;margin:0 auto 32px;line-height:1.7">Nine days of guided preparation — for your body, your nervous system, and the life you are calling in.</p>
+
+    <div class="action-grid">
+      <div class="action-card">
+        <div class="action-icon" style="background:rgba(139,26,26,.08)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B1A1A" stroke-width="1.4"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 9h18"/></svg>
+        </div>
+        <p class="action-title">Save the Date</p>
+        <p class="action-desc">Add your opening session to your calendar — the Zoom link will already be there when it's time to join.</p>
+        <a id="calendarBtn" href="#" target="_blank" class="action-btn calendar">Add to Calendar</a>
+      </div>
+      <div class="action-card">
+        <div class="action-icon" style="background:rgba(63,160,70,.1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3FA046" stroke-width="1.4"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </div>
+        <p class="action-title">Join the Circle</p>
+        <p class="action-desc">Step into our WhatsApp community — for daily encouragement, reminders, and connection with the other women on this journey.</p>
+        <a href="https://chat.whatsapp.com/BWjTiDMgyZR9yiCeF4jUGT?mode=gi_t" target="_blank" class="action-btn whatsapp">Join WhatsApp Group</a>
+      </div>
+    </div>
+
+    <p class="email-note">You'll also receive every detail by email — so if you need to step away from this page, nothing will be lost.</p>
+
+    <div class="zoom-direct">
+      <p>Prefer to join directly when the time comes? Here's your Zoom link:</p>
+      <a href="https://us06web.zoom.us/j/88361683048?pwd=m0ucKpg1rrf7LadgK19k1yEa4mccC3.1" target="_blank">https://us06web.zoom.us/j/88361683048</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="f-brand">Merely Mindful</div>
+      <p style="font-size:13px;color:rgba(250,247,242,.38);max-width:280px;line-height:1.7">Pioneering the Conscious Conception Movement. Enniscorthy, Ireland · Worldwide.</p>
+    </div>
+    <div class="f-links">
+      <a href="index.html">Home</a>
+      <a href="consult.html">1:1 Consult</a>
+      <a href="workshop.html">Workshop</a>
+      <a href="programme.html">Programme</a>
+      <a href="https://www.instagram.com/merelymindful" target="_blank">Instagram</a>
+    </div>
+  </div>
+  <p class="footer-disc">Oshikha is a certified Hormonal Health Coach, Celtic Breathwork Facilitator, and Conscious Conception Guide (IICT & CPD accredited). This work supports your body — it does not replace medical care. Always consult a qualified healthcare provider when needed.</p>
+</footer>
+
+<script>
+// Build a Google Calendar "Add Event" link, pre-filled with the opening session
+// details and the Zoom link embedded directly in the event description.
+(function () {
+  const ZOOM_LINK = "https://us06web.zoom.us/j/88361683048?pwd=m0ucKpg1rrf7LadgK19k1yEa4mccC3.1";
+
+  // Session: 15th July 2026, 5:00pm Irish Summer Time (IST, UTC+1 in July).
+  // 5:00pm Irish time = 16:00 UTC. Assuming a 90-minute session — adjust the
+  // end time below if the actual session runs longer or shorter.
+  const startUTC = "20260715T160000Z"; // 16:00 UTC = 5:00pm Irish time
+  const endUTC   = "20260715T173000Z"; // 17:30 UTC = 6:30pm Irish time
+
+  const title = encodeURIComponent("9-Day Conception Portal — Opening Session");
+  const details = encodeURIComponent(
+    "Your 9-Day Conception Portal journey begins today.\n\n" +
+    "Join the opening session here:\n" + ZOOM_LINK + "\n\n" +
+    "With love,\nOshikha · Merely Mindful"
+  );
+  const location = encodeURIComponent("Zoom — " + ZOOM_LINK);
+
+  const calendarUrl =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + title +
+    "&dates=" + startUTC + "/" + endUTC +
+    "&details=" + details +
+    "&location=" + location;
+
+  const btn = document.getElementById("calendarBtn");
+  if (btn) btn.href = calendarUrl;
+})();
+</script>
+
+</body>
+</html>
