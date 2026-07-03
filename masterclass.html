@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Masterclass — Merely Mindful</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --crimson:#8B1A1A;--crimson-deep:#5C0F0F;
+  --gold:#C9A84C;--gold-light:#E8C97A;
+  --ivory:#FAF7F2;--ivory-warm:#F5EDE0;--ivory-dark:#EDE0CF;
+  --charcoal:#1C1410;--text-mid:#4A3728;--text-muted:#7A6458;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"Jost",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ivory);color:var(--charcoal);
+  font-family:var(--sans);font-weight:300;line-height:1.7;
+  overflow-x:hidden;
+}
+nav{
+  padding:18px 48px;display:flex;justify-content:space-between;align-items:center;
+  background:rgba(250,247,242,.97);border-bottom:1px solid rgba(201,168,76,.15);
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);
+}
+.logo{font-family:var(--serif);font-size:22px;font-weight:300;font-style:italic;color:var(--crimson-deep);text-decoration:none}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.1);opacity:.65}}
+@keyframes fade-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero{text-align:center;padding:64px 24px 48px;max-width:720px;margin:0 auto;animation:fade-up .9s ease both}
+.mandala-mark{width:52px;height:52px;border-radius:50%;border:1px solid rgba(201,168,76,.45);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;animation:pulse-ring 5s ease-in-out infinite}
+.mandala-mark span{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
+.hero h1{font-family:var(--serif);font-size:clamp(34px,4.5vw,56px);font-weight:300;color:var(--crimson-deep);line-height:1.12;margin-bottom:16px}
+.hero h1 em{font-style:italic}
+.hero p{font-size:16px;color:var(--text-muted);max-width:520px;margin:0 auto;line-height:1.85}
+.video-section{max-width:900px;margin:0 auto;padding:0 24px 72px;animation:fade-up .9s .15s ease both}
+.video-wrap{border-radius:4px;overflow:hidden;box-shadow:0 24px 64px rgba(28,20,16,.22)}
+.section-divider{max-width:640px;margin:0 auto 64px;text-align:center;padding:0 24px}
+.divider-line{display:flex;align-items:center;gap:16px;margin-bottom:28px}
+.divider-line::before,.divider-line::after{content:"";flex:1;height:1px;background:var(--ivory-dark)}
+.divider-line span{font-size:18px;color:var(--gold)}
+.pdf-section{max-width:720px;margin:0 auto;padding:0 24px 80px;animation:fade-up .9s .3s ease both}
+.pdf-card{background:#fff;border:1px solid var(--ivory-dark);border-radius:6px;padding:40px 44px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;box-shadow:0 4px 24px rgba(28,20,16,.06)}
+.pdf-eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+.pdf-card h2{font-family:var(--serif);font-size:28px;font-weight:400;color:var(--crimson-deep);margin-bottom:12px;line-height:1.25}
+.pdf-card p{font-size:14.5px;color:var(--text-muted);line-height:1.75;max-width:420px}
+.pdf-weeks{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.pdf-week{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-mid);font-weight:500;background:var(--ivory-warm);border-radius:20px;padding:5px 12px}
+.pdf-week-dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.btn-download{display:inline-flex;align-items:center;gap:10px;background:var(--crimson);color:var(--ivory);font-family:var(--sans);font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:16px 28px;text-decoration:none;border-radius:2px;white-space:nowrap;transition:background .25s ease,transform .25s ease;box-shadow:0 4px 18px rgba(139,26,26,.22)}
+.btn-download:hover{background:var(--crimson-deep);transform:translateY(-2px)}
+.closing{text-align:center;max-width:560px;margin:0 auto;padding:0 24px 96px}
+.closing p{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--text-mid);line-height:1.85;margin-bottom:20px}
+.signoff{font-family:var(--sans);font-size:13px;color:var(--gold);letter-spacing:.06em;font-style:normal}
+footer{background:var(--charcoal);padding:44px 48px}
+.footer-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;padding-bottom:28px;border-bottom:1px solid rgba(250,247,242,.07)}
+.f-brand{font-family:var(--serif);font-size:20px;font-style:italic;color:var(--ivory);margin-bottom:6px}
+.f-col{display:flex;flex-direction:column;gap:9px}
+.f-col h4{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-light);margin-bottom:4px;font-weight:500}
+.f-col a{font-size:12px;color:rgba(250,247,242,.38);text-decoration:none}
+.f-col a:hover{color:var(--gold-light)}
+.f-col p{font-size:12px;color:rgba(250,247,242,.28);line-height:1.7;margin:0}
+.footer-disc{max-width:1080px;margin:20px auto 0;font-size:11px;color:rgba(250,247,242,.18);line-height:1.8}
+@media(max-width:700px){
+  nav{padding:15px 20px}
+  .pdf-card{grid-template-columns:1fr;padding:28px 24px;gap:20px}
+  .btn-download{width:100%;justify-content:center}
+  footer{padding:36px 20px}
+  .footer-inner{grid-template-columns:1fr;gap:20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Merely Mindful</a>
+</nav>
+
+<div class="hero">
+  <div class="mandala-mark"><span></span></div>
+  <span class="eyebrow">Your Content Is Ready</span>
+  <h1>Welcome, <em>Mindful Mama.</em><br>Your journey begins here.</h1>
+  <p>Everything you need is on this page — your masterclass recording and your 21-day protocol. Take your time with both. There is no rush.</p>
+</div>
+
+<div class="video-section">
+  <div class="video-wrap">
+    <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1206472660?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Conscious Conception Masterclass"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+  </div>
+</div>
+
+<div class="section-divider">
+  <div class="divider-line"><span>✦</span></div>
+  <p style="font-family:var(--serif);font-size:17px;font-style:italic;color:var(--text-mid);line-height:1.8">
+    "The body does not need to be forced into fertility.<br>It needs the right conditions to feel safe enough to open."
+  </p>
+</div>
+
+<div class="pdf-section">
+  <div class="pdf-card">
+    <div>
+      <span class="pdf-eyebrow">Your Free Resource</span>
+      <h2>21-Day Fertility<br>Readiness Protocol</h2>
+      <p>A simple, structured guide to restore hormonal balance, regulate your nervous system, and prepare your body — and your life — for conscious conception. Three weeks. One clear direction.</p>
+      <div class="pdf-weeks">
+        <span class="pdf-week"><span class="pdf-week-dot"></span>Week 1 — Clear</span>
+        <span class="pdf-week"><span class="pdf-week-dot"></span>Week 2 — Nourish</span>
+        <span class="pdf-week"><span class="pdf-week-dot"></span>Week 3 — Receive</span>
+      </div>
+    </div>
+    <div>
+      <a href="https://drive.google.com/file/d/1aP1GjWYxOxfpaDJiFgJ6JB87ySDVrhTL/view?usp=sharing"
+         target="_blank" class="btn-download">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="closing">
+  <p>If anything in the Masterclass or the Protocol brings up questions, just hit reply to your email. I read every message myself.</p>
+  <p class="signoff">Om Namah Shivay 🤍</p>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="f-col">
+      <div class="f-brand">Merely Mindful</div>
+      <p>Pioneering the Conscious Conception Movement.<br>Enniscorthy, Ireland · Worldwide.</p>
+    </div>
+    <div class="f-col">
+      <h4>Explore</h4>
+      <a href="index.html">Home</a>
+      <a href="workshop.html">Workshop · €24</a>
+      <a href="portal.html">Portal · €150</a>
+      <a href="consult.html">1:1 Consult · €111</a>
+      <a href="programme.html">Programme · €1,500</a>
+      <a href="assessment/index.html">Free Assessment</a>
+    </div>
+    <div class="f-col">
+      <h4>Policies</h4>
+      <a href="refund-policy.html">Refund &amp; Cancellation Policy</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+    </div>
+  </div>
+  <p class="footer-disc">Merely Mindful Limited. This is not professional medical advice but a holistic approach to fertility. Always consult a qualified healthcare provider regarding your specific situation.</p>
+</footer>
+
+</body>
+</html>
