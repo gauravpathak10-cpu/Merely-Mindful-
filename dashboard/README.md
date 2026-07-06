@@ -15,6 +15,13 @@ show a banner saying it isn't connected yet, which is expected.
 2. Paste the entire contents of `../supabase/schema.sql`
 3. Run it — this creates the tables and security rules
 
+## 2b. (Optional) Add sample content
+If you'd rather see the dashboard populated than empty while you build out
+your real library, run `../supabase/seed.sql` too (same SQL Editor, after
+schema.sql). It's placeholder yoga/meditation/recipe entries and the 8-week
+curriculum with fake Vimeo links — edit or delete any of it in the Table
+Editor whenever you're ready to replace it with the real thing.
+
 ## 3. Connect the app
 1. Open `dashboard/config.js`
 2. Paste your Project URL and anon key into the two fields
