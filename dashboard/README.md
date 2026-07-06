@@ -23,7 +23,7 @@ curriculum with fake Vimeo links — edit or delete any of it in the Table
 Editor whenever you're ready to replace it with the real thing.
 
 ## 3. Connect the app
-1. Open `dashboard/config.js`
+1. Open `dashboard/supabase-env.js`
 2. Paste your Project URL and anon key into the two fields
 3. Commit and push — the banner will disappear once it's configured correctly
 
@@ -45,7 +45,7 @@ Authentication → Users, which creates the `auth.users` row for you — then co
 that generated user id into the matching `members.id`.
 
 ## 6. Going live
-This repo already has GitHub Pages enabled for merelymindful.com. Once config.js
+This repo already has GitHub Pages enabled for merelymindful.com. Once supabase-env.js
 has real values, this dashboard will be live at:
 
 **merelymindful.com/dashboard/**
