@@ -359,7 +359,44 @@ function renderAccount(member) {
     <div><strong style="color:var(--ink);">Email:</strong> ${escapeHtml(member.email)}</div>
     <div><strong style="color:var(--ink);">Stage:</strong> ${escapeHtml(member.stage)}</div>
     <div><strong style="color:var(--ink);">Tier:</strong> ${escapeHtml(member.tier || '—')}</div>`;
+
+  document.getElementById('field-stage').value = member.stage === 'pregnant' ? 'pregnant' : 'ttc';
+  document.getElementById('field-last-period').value = member.last_period_start || '';
+  document.getElementById('field-cycle-length').value = member.cycle_length || 28;
+  document.getElementById('field-due-date').value = member.due_date || '';
+  toggleStageFields();
 }
+
+function toggleStageFields() {
+  const stage = document.getElementById('field-stage').value;
+  document.getElementById('ttc-fields').classList.toggle('hidden', stage !== 'ttc');
+  document.getElementById('pregnant-fields').classList.toggle('hidden', stage !== 'pregnant');
+}
+document.getElementById('field-stage').addEventListener('change', toggleStageFields);
+
+document.getElementById('save-cycle-btn').addEventListener('click', async () => {
+  if (!currentMember) return;
+  const statusEl = document.getElementById('save-status');
+  const stage = document.getElementById('field-stage').value;
+  const updates = { stage };
+  if (stage === 'ttc') {
+    updates.last_period_start = document.getElementById('field-last-period').value || null;
+    updates.cycle_length = parseInt(document.getElementById('field-cycle-length').value, 10) || 28;
+  } else {
+    updates.due_date = document.getElementById('field-due-date').value || null;
+  }
+  statusEl.textContent = 'Saving...';
+  const { error } = await supabase.from('members').update(updates).eq('id', currentMember.id);
+  if (error) {
+    statusEl.textContent = 'Something went wrong: ' + error.message;
+    return;
+  }
+  Object.assign(currentMember, updates);
+  statusEl.textContent = 'Saved.';
+  renderToday(currentMember);
+  await loadContent(currentMember);
+  setTimeout(() => { statusEl.textContent = ''; }, 2500);
+});
 
 // ---------- PAGE ROUTING ----------
 function showPage(name) {
