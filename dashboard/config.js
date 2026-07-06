@@ -11,6 +11,6 @@
 // ============================================================
 
 window.SUPABASE_CONFIG = {
-  url: "",       // e.g. "https://abcdefgh.supabase.co"
-  anonKey: ""    // e.g. "eyJhbGciOi..."
+  url: "https://xwnvrqxedoocmtlwactg.supabase.co",
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3bnZycXhlZG9vY210bHdhY3RnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMzEwMTUsImV4cCI6MjA5ODkwNzAxNX0.Rh80v5zt7s1omsKaSKpN1jU22XC1Qona2gwDBM2nLOw"
 };
