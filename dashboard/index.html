@@ -142,6 +142,10 @@
 
   .circle-switch{display:flex;gap:10px;align-items:center;margin-bottom:18px;font-size:13px;flex-wrap:wrap;}
 
+  .portal-day.locked{opacity:0.55;}
+  .portal-day.locked h3{color:var(--ink-faint);}
+  .portal-day .lock-icon{font-size:13px;color:var(--ink-faint);margin-left:6px;}
+
   .account-field{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13.5px;font-family:inherit;background:var(--ivory);color:var(--ink);}
   .account-field:focus{outline:2px solid var(--crimson);outline-offset:1px;}
   #ttc-fields, #pregnant-fields{display:flex;flex-direction:column;gap:12px;}
@@ -195,16 +199,14 @@
 
   <nav class="portal-nav" aria-label="Portal sections">
     <button data-page="today" aria-current="page">Today</button>
-    <button data-page="journey">Journey</button>
-    <button data-page="practice">Practice Library</button>
-    <button data-page="nourish">Nourish</button>
+    <button data-page="portaldays" id="nav-portaldays" class="hidden">Portal Days</button>
     <button data-page="circle">Circle</button>
     <button data-page="account">Account</button>
   </nav>
 
   <!-- PAGE: TODAY -->
   <div class="page active" id="page-today">
-    <div class="hero">
+    <div class="hero" style="grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto;">
       <div class="card wheel-card">
         <div class="eyebrow" id="wheel-eyebrow">Cycle Day</div>
         <div class="wheel-holder" aria-hidden="true">
@@ -220,54 +222,21 @@
         <div class="phase-detail" id="phase-detail"></div>
         <button class="count-toggle" id="count-toggle">Hide exact day count</button>
       </div>
-
-      <div class="card focus-card">
-        <div>
-          <div class="focus-tag" id="focus-tag">Today's Focus</div>
-          <h2 id="focus-title">—</h2>
-          <p id="focus-desc"></p>
-          <div class="why-this" id="why-this"></div>
-        </div>
-        <div class="cta-row">
-          <button class="btn-primary" id="primary-cta">Begin practice</button>
-          <button class="btn-ghost" id="ghost-cta">See alternatives</button>
-        </div>
-      </div>
     </div>
 
     <div class="card steps-bar" id="steps-bar">
       <ul id="steps-list"></ul>
     </div>
-
-    <section id="recommend-section">
-      <div class="section-head"><h2>Recommended for You</h2></div>
-      <div class="grid3" id="recommend-grid"></div>
-    </section>
   </div>
 
-  <!-- PAGE: JOURNEY -->
-  <div class="page" id="page-journey">
-    <div class="section-head"><h2>Your Journey</h2></div>
-    <div class="path" id="journey-path"></div>
-    <div class="module-list" id="module-list"></div>
-  </div>
-
-  <!-- PAGE: PRACTICE LIBRARY -->
-  <div class="page" id="page-practice">
-    <div class="section-head"><h2>Practice Library</h2></div>
-    <div class="chips" id="practice-chips">
-      <button class="chip" aria-pressed="true" data-filter="all">All</button>
-      <button class="chip" aria-pressed="false" data-filter="yoga">Yoga</button>
-      <button class="chip" aria-pressed="false" data-filter="meditation">Meditation</button>
-      <button class="chip" aria-pressed="false" data-filter="breath">Breathwork</button>
+  <!-- PAGE: PORTAL DAYS -->
+  <div class="page" id="page-portaldays">
+    <div class="section-head">
+      <h2>Your 9-Day Portal</h2>
+      <span class="eyebrow" id="portal-day-label" style="margin:0;"></span>
     </div>
-    <div class="grid3" id="practice-grid"></div>
-  </div>
-
-  <!-- PAGE: NOURISH -->
-  <div class="page" id="page-nourish">
-    <div class="section-head"><h2>Nourish</h2></div>
-    <div class="grid3" id="nourish-grid"></div>
+    <p style="font-size:13px;color:var(--ink-soft);margin:-8px 0 20px;max-width:520px;">A new day opens automatically each day of your 9-day journey — no need to check back constantly, it'll be here when it's ready.</p>
+    <div class="grid3" id="portal-days-grid"></div>
   </div>
 
   <!-- PAGE: CIRCLE -->
@@ -341,10 +310,9 @@
 
 <nav class="bottom-nav" aria-label="Portal sections, mobile">
   <button data-page="today" aria-current="page"><span class="ic">☉</span>Today</button>
-  <button data-page="journey"><span class="ic">⟶</span>Journey</button>
-  <button data-page="practice"><span class="ic">☾</span>Practice</button>
-  <button data-page="nourish"><span class="ic">✿</span>Nourish</button>
+  <button data-page="portaldays" id="nav-portaldays-mobile" class="hidden"><span class="ic">◷</span>Portal Days</button>
   <button data-page="circle"><span class="ic">◐</span>Circle</button>
+  <button data-page="account"><span class="ic">⚙</span>Account</button>
 </nav>
 </div>
 

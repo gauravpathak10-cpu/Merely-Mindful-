@@ -1,9 +1,10 @@
 // ============================================================
-// Merely Mindful — Member Dashboard app logic
-// Real Supabase auth + data. No hardcoded member data lives here —
-// everything comes from the `members`, `content_library`,
-// `journey_modules`, `progress`, and `next_steps` tables
-// (see /supabase/schema.sql).
+// Merely Mindful — Member Dashboard app logic (simplified launch version)
+// Real Supabase auth + data. No hardcoded member data lives here.
+// Deliberately stripped down for the initial launch: no yoga/meditation/
+// recipe content library, no 6-week Journey — just cycle/pregnancy
+// tracking, the 9-Day Portal's daily-unlocking modules, Circle, and
+// Account. See /supabase/schema.sql + migration_portal_days.sql.
 // ============================================================
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
@@ -70,12 +71,13 @@ async function loadEverything(user) {
   document.getElementById('greeting-name').textContent = 'Welcome back';
 
   renderToday(member);
-  await Promise.all([
-    loadSteps(member.id),
-    loadContent(member),
-    loadJourney(member.id)
-  ]);
+  await loadSteps(member.id);
   document.getElementById('circle-name').textContent = member.circle === 'birth' ? 'Birth Circle' : 'Womb Circle';
+
+  const showPortalTab = !!member.portal_enrolled;
+  document.getElementById('nav-portaldays').classList.toggle('hidden', !showPortalTab);
+  document.getElementById('nav-portaldays-mobile').classList.toggle('hidden', !showPortalTab);
+  if (showPortalTab) await loadPortalDays();
 }
 
 // ---------- TODAY: cycle/pregnancy math + rendering ----------
@@ -122,9 +124,6 @@ function setRing(mode, extra) {
 
 function renderToday(member) {
   document.querySelectorAll('.view').forEach(v => v.classList.toggle('active', v.dataset.view === member.stage));
-  const primary = document.getElementById('primary-cta');
-  const ghost = document.getElementById('ghost-cta');
-  const recommend = document.getElementById('recommend-section');
   const countToggle = document.getElementById('count-toggle');
   const stepsBar = document.getElementById('steps-bar');
 
@@ -133,27 +132,14 @@ function renderToday(member) {
     document.getElementById('phase-name').textContent = 'We are holding space for you';
     document.getElementById('phase-detail').textContent =
       'There is no need to track anything right now. When you are ready, Oshika would like to speak with you directly.';
-    document.getElementById('focus-tag').textContent = 'A Gentle Note';
-    document.getElementById('focus-title').textContent = 'You do not need to do anything today';
-    document.getElementById('focus-desc').textContent =
-      'Automated recommendations are paused for your account. This space is simply here when you want it.';
-    document.getElementById('why-this').style.display = 'none';
     document.getElementById('wheel-caption').classList.add('hidden-count');
-    primary.textContent = 'Book a call with Oshika';
-    ghost.classList.add('hidden');
-    recommend.classList.add('hidden');
     countToggle.classList.add('hidden');
     stepsBar.innerHTML = '<p class="care-quiet">There is nothing on your list right now — that is alright.</p>';
     document.getElementById('affirmation').textContent = '"You are held, exactly as you are, in this moment."';
     return;
   }
 
-  ghost.classList.remove('hidden');
-  recommend.classList.remove('hidden');
   countToggle.classList.remove('hidden');
-  document.getElementById('why-this').style.display = 'block';
-  primary.textContent = 'Begin practice';
-  ghost.textContent = 'See alternatives';
 
   if (member.stage === 'pregnant') {
     const { week } = computePregnant(member);
@@ -163,12 +149,8 @@ function renderToday(member) {
     document.getElementById('wheel-small').textContent = week != null ? 'of 40 weeks' : '';
     document.getElementById('phase-name').textContent = week != null ? trimesterName(week) : '—';
     document.getElementById('phase-detail').textContent = week != null
-      ? 'Energy and needs shift week to week — your practice below is matched to where you are now.'
+      ? 'Energy and needs shift week to week as your pregnancy progresses.'
       : 'Add a due date in Account so we can personalize this view.';
-    document.getElementById('focus-tag').textContent = "Today's Focus";
-    document.getElementById('focus-title').textContent = 'Prenatal practice for this trimester';
-    document.getElementById('focus-desc').textContent = 'Pulled from your Practice Library, matched to this week.';
-    document.getElementById('why-this').textContent = week != null ? `Why this: you are in week ${week}.` : '';
     document.getElementById('affirmation').textContent = '"I trust my body to grow and carry this life, one day at a time."';
   } else {
     const { cycleDay, cycleLength } = computeTtc(member);
@@ -178,12 +160,8 @@ function renderToday(member) {
     document.getElementById('wheel-small').textContent = cycleDay ? `of ${cycleLength}` : '';
     document.getElementById('phase-name').textContent = cycleDay ? phaseName(cycleDay, cycleLength) : '—';
     document.getElementById('phase-detail').textContent = cycleDay
-      ? 'Your practice below is matched to this phase of your cycle.'
+      ? 'Here is where you are in your cycle right now.'
       : 'Add your last period start date in Account so we can personalize this view.';
-    document.getElementById('focus-tag').textContent = "Today's Focus";
-    document.getElementById('focus-title').textContent = 'Practice matched to your cycle phase';
-    document.getElementById('focus-desc').textContent = 'Pulled from your Practice Library, matched to today.';
-    document.getElementById('why-this').textContent = cycleDay ? `Why this: you are on day ${cycleDay} of your cycle.` : '';
     document.getElementById('affirmation').textContent = '"My body knows how to create life, and I am listening to it."';
   }
   document.getElementById('wheel-caption').classList.toggle('hidden-count', !showCount);
@@ -242,106 +220,43 @@ async function loadSteps(memberId) {
   });
 }
 
-// ---------- CONTENT LIBRARY (Practice / Nourish / Recommended) ----------
-async function loadContent(member) {
-  const { data: items } = await supabase.from('content_library').select('*');
-  const all = items || [];
+// ---------- PORTAL DAYS (9-Day Conception Portal, daily unlock) ----------
+// Single shared cohort start date — update this when a new cohort begins.
+// All 9 modules unlock automatically based on today's date vs. this,
+// the same for every enrolled member (no per-member progress needed).
+const PORTAL_START_DATE = new Date('2026-07-15T00:00:00Z');
 
-  const practice = all.filter(i => ['yoga', 'meditation', 'breath'].includes(i.type));
-  const nourish = all.filter(i => i.type === 'recipe');
-
-  renderGrid('practice-grid', practice, i => i.type);
-  renderGrid('nourish-grid', nourish, () => 'recipe');
-  wireChips('practice-chips', 'practice-grid');
-
-  // Recommended: naive tag match against current phase/trimester name
-  const phaseTag = member.stage === 'pregnant'
-    ? (computePregnant(member).week != null ? trimesterTag(computePregnant(member).week) : null)
-    : (computeTtc(member).cycleDay != null ? phaseTag(computeTtc(member).cycleDay, computeTtc(member).cycleLength) : null);
-  const recommended = phaseTag ? all.filter(i => (i.tags || []).includes(phaseTag)).slice(0, 3) : all.slice(0, 3);
-  renderGrid('recommend-grid', recommended, i => i.type, true);
+function currentPortalDay() {
+  const diffDays = Math.floor((new Date() - PORTAL_START_DATE) / 86400000) + 1;
+  return Math.max(0, diffDays);
 }
 
-function phaseTag(day, len) {
-  const name = phaseName(day, len);
-  return { 'Menstrual Phase': 'menstrual', 'Follicular Phase': 'follicular', 'Fertile Window': 'ovulation', 'Luteal Phase': 'luteal' }[name];
-}
-function trimesterTag(week) {
-  if (week <= 13) return 'first_trimester';
-  if (week <= 27) return 'second_trimester';
-  return 'third_trimester';
-}
-
-function renderGrid(elId, items, iconFor, showWhy) {
-  const el = document.getElementById(elId);
-  if (!items.length) {
-    el.innerHTML = '<p style="font-size:13px;color:var(--ink-soft);">Nothing here yet — add rows to content_library in Supabase.</p>';
-    return;
-  }
-  el.innerHTML = items.map(i => `
-    <div class="tile" data-cat="${i.type}">
-      <div class="tile-icon">${i.type === 'recipe' ? '✿' : '☾'}</div>
-      <h3>${escapeHtml(i.title)}</h3>
-      <p>${escapeHtml(i.description || '')}</p>
-      ${showWhy ? `<div class="why">Matched to: ${(i.tags || []).join(', ')}</div>` : ''}
-      <div class="meta"><span>${i.duration_min ? i.duration_min + ' min · ' : ''}${i.type}</span></div>
-    </div>`).join('');
-}
-
-function wireChips(chipContainerId, gridId) {
-  const container = document.getElementById(chipContainerId);
-  const grid = document.getElementById(gridId);
-  container.querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      container.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
-      chip.setAttribute('aria-pressed', 'true');
-      const filter = chip.dataset.filter;
-      grid.querySelectorAll('.tile').forEach(tile => {
-        tile.style.display = (filter === 'all' || tile.dataset.cat === filter) ? '' : 'none';
-      });
-    });
-  });
-}
-
-// ---------- JOURNEY ----------
-async function loadJourney(memberId) {
-  const { data: modules } = await supabase.from('journey_modules').select('*').order('week_number');
-  const { data: progressRows } = await supabase.from('progress').select('*').eq('member_id', memberId);
-  const progressByModule = {};
-  (progressRows || []).forEach(p => { progressByModule[p.module_id] = p; });
-
+async function loadPortalDays() {
+  const { data: modules } = await supabase.from('portal_modules').select('*').order('day_number');
   const mods = modules || [];
-  document.getElementById('journey-path').innerHTML = mods.map(m => {
-    const status = progressByModule[m.id]?.status || 'locked';
-    return `<div class="step ${status}"><div class="connector"></div><div class="dot">${status === 'done' ? '✓' : m.week_number}</div><div class="label">${escapeHtml(m.title)}</div><div class="sub">Week ${m.week_number}</div></div>`;
-  }).join('') || '<p style="font-size:13px;color:var(--ink-soft);">Add rows to journey_modules in Supabase to populate this.</p>';
+  const currentDay = currentPortalDay();
 
-  document.getElementById('module-list').innerHTML = mods.map(m => {
-    const status = progressByModule[m.id]?.status || 'locked';
-    return `<div class="module ${status}" data-module-id="${m.id}">
-      <button class="module-head" data-toggle="module"><div class="dot">${status === 'done' ? '✓' : m.week_number}</div>
-        <div class="titles"><h3>Week ${m.week_number} — ${escapeHtml(m.title)}</h3><div class="sub">${status}</div></div>
-        <span class="chevron">⌄</span></button>
-      <div class="module-body"><div class="module-body-inner">${escapeHtml(m.description || '')}
-        <div class="actions">
-          ${m.media_url ? `<a class="btn-primary" style="padding:8px 14px;text-decoration:none;" href="${m.media_url}" target="_blank" rel="noopener">Watch lesson</a>` : ''}
-          ${m.workbook_url ? `<a class="btn-ghost" style="padding:8px 14px;text-decoration:none;" href="${m.workbook_url}" target="_blank" rel="noopener">Download workbook</a>` : ''}
-          ${status === 'current' ? `<button class="btn-ghost" style="padding:8px 14px;" data-mark-done="${m.id}">Mark complete</button>` : ''}
-        </div></div></div>
+  document.getElementById('portal-day-label').textContent =
+    currentDay >= 1 && currentDay <= 9 ? `Day ${currentDay} of 9` : (currentDay > 9 ? 'Complete' : 'Starting soon');
+
+  document.getElementById('portal-days-grid').innerHTML = mods.map(m => {
+    const unlocked = m.day_number <= currentDay;
+    if (unlocked) {
+      return `<div class="tile portal-day unlocked">
+        <div class="eyebrow">Day ${m.day_number}</div>
+        <h3>${escapeHtml(m.title || ('Day ' + m.day_number))}</h3>
+        <div class="meta" style="margin-top:10px;">
+          ${m.media_url ? `<a class="btn-primary" style="padding:8px 14px;text-decoration:none;display:inline-block;" href="${m.media_url}" target="_blank" rel="noopener">Open</a>` : '<span style="color:var(--ink-soft);font-size:12px;">Material coming soon</span>'}
+          ${m.workbook_url ? `<a class="btn-ghost" style="padding:8px 14px;text-decoration:none;display:inline-block;margin-left:8px;" href="${m.workbook_url}" target="_blank" rel="noopener">Workbook</a>` : ''}
+        </div>
+      </div>`;
+    }
+    return `<div class="tile portal-day locked">
+      <div class="eyebrow">Day ${m.day_number}</div>
+      <h3>Locked <span class="lock-icon">🔒</span></h3>
+      <div class="meta" style="margin-top:10px;color:var(--ink-faint);font-size:12px;">Unlocks on day ${m.day_number}</div>
     </div>`;
-  }).join('');
-
-  document.querySelectorAll('[data-toggle="module"]').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.module').classList.toggle('open'));
-  });
-  document.querySelectorAll('[data-mark-done]').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      e.stopPropagation();
-      await supabase.from('progress').update({ status: 'done', completed_at: new Date().toISOString() })
-        .eq('member_id', memberId).eq('module_id', btn.dataset.markDone);
-      await loadJourney(memberId);
-    });
-  });
+  }).join('') || '<p style="font-size:13px;color:var(--ink-soft);">Add rows to portal_modules in Supabase to populate this.</p>';
 }
 
 // ---------- CIRCLE SWITCH ----------
@@ -394,7 +309,6 @@ document.getElementById('save-cycle-btn').addEventListener('click', async () => 
   Object.assign(currentMember, updates);
   statusEl.textContent = 'Saved.';
   renderToday(currentMember);
-  await loadContent(currentMember);
   setTimeout(() => { statusEl.textContent = ''; }, 2500);
 });
 
