@@ -200,8 +200,8 @@
   </header>
 
   <nav class="portal-nav" aria-label="Portal sections">
-    <button data-page="today" aria-current="page">Today</button>
-    <button data-page="portaldays" id="nav-portaldays" class="hidden">Portal Days</button>
+    <!-- <button data-page="today">Today</button> -->
+    <button data-page="portaldays" id="nav-portaldays" aria-current="page">Portal Days</button>
     <button data-page="yourplan" id="nav-yourplan" class="hidden">Your Plan</button>
     <button data-page="nourish" id="nav-nourish" class="hidden">Nourish</button>
     <button data-page="circle" id="nav-circle" class="hidden">Circle</button>
@@ -209,7 +209,7 @@
   </nav>
 
   <!-- PAGE: TODAY -->
-  <div class="page active" id="page-today">
+  <div class="page" id="page-today">
     <div class="hero" style="grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto;">
       <div class="card wheel-card">
         <div class="eyebrow" id="wheel-eyebrow">Cycle Day</div>
@@ -234,7 +234,7 @@
   </div>
 
   <!-- PAGE: PORTAL DAYS -->
-  <div class="page" id="page-portaldays">
+  <div class="page active" id="page-portaldays">
     <div class="section-head">
       <h2>Your 9-Day Portal</h2>
       <span class="eyebrow" id="portal-day-label" style="margin:0;"></span>
@@ -352,8 +352,8 @@
 </div>
 
 <nav class="bottom-nav" aria-label="Portal sections, mobile">
-  <button data-page="today" aria-current="page"><span class="ic">☉</span>Today</button>
-  <button data-page="portaldays" id="nav-portaldays-mobile" class="hidden"><span class="ic">◷</span>Portal Days</button>
+  <!-- <button data-page="today"><span class="ic">☉</span>Today</button> -->
+  <button data-page="portaldays" id="nav-portaldays-mobile" aria-current="page"><span class="ic">◷</span>Portal Days</button>
   <button data-page="yourplan" id="nav-yourplan-mobile" class="hidden"><span class="ic">🌿</span>Plan</button>
   <button data-page="nourish" id="nav-nourish-mobile" class="hidden"><span class="ic">✿</span>Nourish</button>
   <button data-page="circle" id="nav-circle-mobile" class="hidden"><span class="ic">◐</span>Circle</button>
