@@ -72,18 +72,26 @@ async function loadEverything(user) {
 
   renderToday(member);
   await loadSteps(member.id);
-  document.getElementById('circle-name').textContent = member.circle === 'birth' ? 'Birth Circle' : 'Womb Circle';
+
+  const showCircleTab = !!member.circle_enrolled;
+  document.getElementById('nav-circle').classList.toggle('hidden', !showCircleTab);
+  document.getElementById('nav-circle-mobile').classList.toggle('hidden', !showCircleTab);
+  if (showCircleTab) {
+    document.getElementById('circle-name').textContent = member.circle === 'birth' ? 'Birth Circle' : 'Womb Circle';
+  }
 
   const showPortalTab = !!member.portal_enrolled;
   document.getElementById('nav-portaldays').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-portaldays-mobile').classList.toggle('hidden', !showPortalTab);
   if (showPortalTab) await loadPortalDays();
 
-  // "Your Plan" shows for the same members as Portal Days for now — both
-  // are part of the 9-Day Portal onboarding. Revisit this gate once other
-  // programs also get personalised plans.
+  // "Your Plan" and "Nourish" show for the same members as Portal Days for
+  // now — all part of the 9-Day Portal onboarding. Revisit this gate once
+  // other programs also get personalised plans.
   document.getElementById('nav-yourplan').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-yourplan-mobile').classList.toggle('hidden', !showPortalTab);
+  document.getElementById('nav-nourish').classList.toggle('hidden', !showPortalTab);
+  document.getElementById('nav-nourish-mobile').classList.toggle('hidden', !showPortalTab);
   if (showPortalTab) await loadYourPlan(member.id);
 }
 
@@ -283,19 +291,28 @@ const PLAN_SECTION_LABELS = {
 
 async function loadYourPlan(memberId) {
   document.getElementById('plan-form-link').href = INTAKE_FORM_URL;
+  document.getElementById('nourish-form-link').href = INTAKE_FORM_URL;
   const { data: plan } = await supabase.from('member_plans').select('*').eq('member_id', memberId).maybeSingle();
 
   const locked = document.getElementById('plan-locked');
   const content = document.getElementById('plan-content');
+  const nourishLocked = document.getElementById('nourish-locked');
+  const nourishContent = document.getElementById('nourish-content');
 
   if (!plan) {
     locked.classList.remove('hidden');
     content.classList.add('hidden');
+    nourishLocked.classList.remove('hidden');
+    nourishContent.classList.add('hidden');
     return;
   }
 
   locked.classList.add('hidden');
   content.classList.remove('hidden');
+
+  nourishLocked.classList.add('hidden');
+  nourishContent.classList.remove('hidden');
+  nourishContent.textContent = plan.recipes || 'No recipe suggestions added yet.';
 
   document.getElementById('plan-opening').textContent = plan.opening_letter || '';
   document.getElementById('plan-profile').textContent = plan.profile_summary || '';
