@@ -258,10 +258,10 @@ async function loadPortalDays() {
     const unlocked = m.day_number <= currentDay;
     if (unlocked) {
       
-      // OVERRIDE: Point Day 1 and Day 2 to your local HTML files
+// OVERRIDE: Point Day 1 and Day 2 to your local HTML files inside the 'days' folder
       let linkHref = m.media_url;
-      if (m.day_number === 1) linkHref = 'day1.html';
-      if (m.day_number === 2) linkHref = 'day2.html';
+      if (m.day_number === 1) linkHref = 'days/day1.html';
+      if (m.day_number === 2) linkHref = 'days/day2.html';
 
       return `<div class="tile portal-day unlocked">
         <div class="eyebrow">Day ${m.day_number}</div>
