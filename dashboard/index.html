@@ -139,6 +139,8 @@
   .module-body-inner{padding:0 18px 18px 62px;font-size:13px;color:var(--ink-soft);}
   .module-body-inner .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
   .module.locked{opacity:0.6;}
+  #plan-sections .module-body-inner{white-space:pre-line;padding:0 18px 18px 18px;font-size:13.5px;line-height:1.7;}
+  #plan-sections .module.open .module-body{max-height:none;}
 
   .circle-switch{display:flex;gap:10px;align-items:center;margin-bottom:18px;font-size:13px;flex-wrap:wrap;}
 
@@ -200,6 +202,7 @@
   <nav class="portal-nav" aria-label="Portal sections">
     <button data-page="today" aria-current="page">Today</button>
     <button data-page="portaldays" id="nav-portaldays" class="hidden">Portal Days</button>
+    <button data-page="yourplan" id="nav-yourplan" class="hidden">Your Plan</button>
     <button data-page="circle">Circle</button>
     <button data-page="account">Account</button>
   </nav>
@@ -237,6 +240,30 @@
     </div>
     <p style="font-size:13px;color:var(--ink-soft);margin:-8px 0 20px;max-width:520px;">A new day opens automatically each day of your 9-day journey — no need to check back constantly, it'll be here when it's ready.</p>
     <div class="grid3" id="portal-days-grid"></div>
+  </div>
+
+  <!-- PAGE: YOUR PLAN -->
+  <div class="page" id="page-yourplan">
+    <div class="section-head"><h2>Your Personalised Plan</h2></div>
+
+    <div id="plan-locked" class="card" style="text-align:center;padding:44px 28px;">
+      <div class="eyebrow">Almost there</div>
+      <h3 style="font-size:20px;margin:10px 0 12px;">Please complete your onboarding form to view your personalised plan</h3>
+      <p style="font-size:13.5px;color:var(--ink-soft);max-width:420px;margin:0 auto 20px;">Once your answers are reviewed, your plan — diet, morning and evening rituals, womb detox, movement, journalling, and affirmations, all built around your own answers — will appear here.</p>
+      <a class="btn-primary" style="text-decoration:none;display:inline-block;" id="plan-form-link" href="#" target="_blank" rel="noopener">Complete onboarding form</a>
+    </div>
+
+    <div id="plan-content" class="hidden">
+      <div class="card" id="plan-opening" style="margin-bottom:20px;white-space:pre-line;font-size:14px;line-height:1.7;"></div>
+
+      <div class="card" id="plan-profile" style="margin-bottom:28px;white-space:pre-line;font-size:13.5px;line-height:1.7;background:var(--ivory-2);"></div>
+
+      <div class="module-list" id="plan-sections"></div>
+
+      <div class="card" id="plan-checklist" style="margin:28px 0;white-space:pre-line;font-size:13.5px;line-height:1.7;background:var(--ivory-2);"></div>
+
+      <div class="card" id="plan-closing" style="white-space:pre-line;font-size:14px;line-height:1.7;font-style:italic;"></div>
+    </div>
   </div>
 
   <!-- PAGE: CIRCLE -->
@@ -311,6 +338,7 @@
 <nav class="bottom-nav" aria-label="Portal sections, mobile">
   <button data-page="today" aria-current="page"><span class="ic">☉</span>Today</button>
   <button data-page="portaldays" id="nav-portaldays-mobile" class="hidden"><span class="ic">◷</span>Portal Days</button>
+  <button data-page="yourplan" id="nav-yourplan-mobile" class="hidden"><span class="ic">🌿</span>Plan</button>
   <button data-page="circle"><span class="ic">◐</span>Circle</button>
   <button data-page="account"><span class="ic">⚙</span>Account</button>
 </nav>

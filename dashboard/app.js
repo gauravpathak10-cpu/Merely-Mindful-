@@ -78,6 +78,13 @@ async function loadEverything(user) {
   document.getElementById('nav-portaldays').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-portaldays-mobile').classList.toggle('hidden', !showPortalTab);
   if (showPortalTab) await loadPortalDays();
+
+  // "Your Plan" shows for the same members as Portal Days for now — both
+  // are part of the 9-Day Portal onboarding. Revisit this gate once other
+  // programs also get personalised plans.
+  document.getElementById('nav-yourplan').classList.toggle('hidden', !showPortalTab);
+  document.getElementById('nav-yourplan-mobile').classList.toggle('hidden', !showPortalTab);
+  if (showPortalTab) await loadYourPlan(member.id);
 }
 
 // ---------- TODAY: cycle/pregnancy math + rendering ----------
@@ -257,6 +264,60 @@ async function loadPortalDays() {
       <div class="meta" style="margin-top:10px;color:var(--ink-faint);font-size:12px;">Unlocks on day ${m.day_number}</div>
     </div>`;
   }).join('') || '<p style="font-size:13px;color:var(--ink-soft);">Add rows to portal_modules in Supabase to populate this.</p>';
+}
+
+// ---------- YOUR PLAN (personalised, written by hand — no auto-generation) ----------
+// Update this if the intake form's URL ever changes.
+const INTAKE_FORM_URL = 'https://docs.google.com/forms/d/1EeJdC7lhOYDRY0DgvP_PstS8I-La9cnFZjtWrlOvn68/viewform';
+
+const PLAN_SECTION_LABELS = {
+  diet: 'Diet',
+  morning_routine: 'Morning Routine',
+  evening_routine: 'Evening Routine',
+  womb_detox: 'Womb Detox Plan',
+  movement: 'Movement',
+  subconscious_reprogramming: 'Subconscious Reprogramming',
+  journaling: 'Journalling',
+  affirmations: 'Affirmations'
+};
+
+async function loadYourPlan(memberId) {
+  document.getElementById('plan-form-link').href = INTAKE_FORM_URL;
+  const { data: plan } = await supabase.from('member_plans').select('*').eq('member_id', memberId).maybeSingle();
+
+  const locked = document.getElementById('plan-locked');
+  const content = document.getElementById('plan-content');
+
+  if (!plan) {
+    locked.classList.remove('hidden');
+    content.classList.add('hidden');
+    return;
+  }
+
+  locked.classList.add('hidden');
+  content.classList.remove('hidden');
+
+  document.getElementById('plan-opening').textContent = plan.opening_letter || '';
+  document.getElementById('plan-profile').textContent = plan.profile_summary || '';
+  document.getElementById('plan-checklist').textContent = plan.daily_checklist || '';
+  document.getElementById('plan-closing').textContent = plan.closing_letter || '';
+
+  const sectionsHtml = Object.keys(PLAN_SECTION_LABELS).map((key, i) => {
+    const text = plan[key];
+    if (!text) return '';
+    return `<div class="module${i === 0 ? ' open' : ''}">
+      <button class="module-head" data-toggle="module"><div class="dot" style="border:none;">🌿</div>
+        <div class="titles"><h3>${PLAN_SECTION_LABELS[key]}</h3></div>
+        <span class="chevron">⌄</span></button>
+      <div class="module-body"><div class="module-body-inner">${escapeHtml(text)}</div></div>
+    </div>`;
+  }).join('');
+  document.getElementById('plan-sections').innerHTML = sectionsHtml ||
+    '<p style="font-size:13px;color:var(--ink-soft);">This plan has no section content yet.</p>';
+
+  document.querySelectorAll('#plan-sections [data-toggle="module"]').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.module').classList.toggle('open'));
+  });
 }
 
 // ---------- CIRCLE SWITCH ----------
