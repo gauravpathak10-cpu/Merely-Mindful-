@@ -276,7 +276,7 @@ async function loadPortalDays() {
 
 // ---------- YOUR PLAN (personalised, written by hand — no auto-generation) ----------
 // Update this if the intake form's URL ever changes.
-const INTAKE_FORM_URL = 'https://docs.google.com/forms/d/1EeJdC7lhOYDRY0DgvP_PstS8I-La9cnFZjtWrlOvn68/viewform';
+const INTAKE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc0K5LW5VnsFEhjkdU6v3a8QNTAjDk_A5SRMQ2lPnfdQAhskA/viewform';
 
 const PLAN_SECTION_LABELS = {
   diet: 'Diet',
