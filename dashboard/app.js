@@ -257,15 +257,22 @@ async function loadPortalDays() {
   document.getElementById('portal-days-grid').innerHTML = mods.map(m => {
     const unlocked = m.day_number <= currentDay;
     if (unlocked) {
+      
+      // OVERRIDE: Point Day 1 and Day 2 to your local HTML files
+      let linkHref = m.media_url;
+      if (m.day_number === 1) linkHref = 'day1.html';
+      if (m.day_number === 2) linkHref = 'day2.html';
+
       return `<div class="tile portal-day unlocked">
         <div class="eyebrow">Day ${m.day_number}</div>
         <h3>${escapeHtml(m.title || ('Day ' + m.day_number))}</h3>
         <div class="meta" style="margin-top:10px;">
-          ${m.media_url ? `<a class="btn-primary" style="padding:8px 14px;text-decoration:none;display:inline-block;" href="${m.media_url}" target="_blank" rel="noopener">Open</a>` : '<span style="color:var(--ink-soft);font-size:12px;">Material coming soon</span>'}
+          ${linkHref ? `<a class="btn-primary" style="padding:8px 14px;text-decoration:none;display:inline-block;" href="${linkHref}">Open</a>` : '<span style="color:var(--ink-soft);font-size:12px;">Material coming soon</span>'}
           ${m.workbook_url ? `<a class="btn-ghost" style="padding:8px 14px;text-decoration:none;display:inline-block;margin-left:8px;" href="${m.workbook_url}" target="_blank" rel="noopener">Workbook</a>` : ''}
         </div>
       </div>`;
     }
+    
     return `<div class="tile portal-day locked">
       <div class="eyebrow">Day ${m.day_number}</div>
       <h3>Locked <span class="lock-icon">🔒</span></h3>
