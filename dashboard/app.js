@@ -92,6 +92,8 @@ async function loadEverything(user) {
   document.getElementById('nav-yourplan-mobile').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-nourish').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-nourish-mobile').classList.toggle('hidden', !showPortalTab);
+  document.getElementById('nav-partner').classList.toggle('hidden', !showPortalTab);
+  document.getElementById('nav-partner-mobile').classList.toggle('hidden', !showPortalTab);
   if (showPortalTab) await loadYourPlan(member.id);
 }
 
@@ -299,18 +301,23 @@ const PLAN_SECTION_LABELS = {
 async function loadYourPlan(memberId) {
   document.getElementById('plan-form-link').href = INTAKE_FORM_URL;
   document.getElementById('nourish-form-link').href = INTAKE_FORM_URL;
+  document.getElementById('partner-form-link').href = INTAKE_FORM_URL;
   const { data: plan } = await supabase.from('member_plans').select('*').eq('member_id', memberId).maybeSingle();
 
   const locked = document.getElementById('plan-locked');
   const content = document.getElementById('plan-content');
   const nourishLocked = document.getElementById('nourish-locked');
   const nourishContent = document.getElementById('nourish-content');
+  const partnerLocked = document.getElementById('partner-locked');
+  const partnerContent = document.getElementById('partner-content');
 
   if (!plan) {
     locked.classList.remove('hidden');
     content.classList.add('hidden');
     nourishLocked.classList.remove('hidden');
     nourishContent.classList.add('hidden');
+    partnerLocked.classList.remove('hidden');
+    partnerContent.classList.add('hidden');
     return;
   }
 
@@ -320,6 +327,10 @@ async function loadYourPlan(memberId) {
   nourishLocked.classList.add('hidden');
   nourishContent.classList.remove('hidden');
   nourishContent.textContent = plan.recipes || 'No recipe suggestions added yet.';
+
+  partnerLocked.classList.add('hidden');
+  partnerContent.classList.remove('hidden');
+  partnerContent.textContent = plan.partner_notes || 'No partner guidance added yet.';
 
   document.getElementById('plan-opening').textContent = plan.opening_letter || '';
   document.getElementById('plan-profile').textContent = plan.profile_summary || '';
