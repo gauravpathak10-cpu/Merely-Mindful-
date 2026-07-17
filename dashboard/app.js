@@ -94,6 +94,10 @@ async function loadEverything(user) {
   document.getElementById('nav-nourish-mobile').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-partner').classList.toggle('hidden', !showPortalTab);
   document.getElementById('nav-partner-mobile').classList.toggle('hidden', !showPortalTab);
+  PLAN_SECTIONS.forEach(sec => {
+    const btn = document.getElementById('nav-plan-' + sec.key);
+    if (btn) btn.classList.toggle('hidden', !showPortalTab);
+  });
   if (showPortalTab) await loadYourPlan(member.id);
 }
 
@@ -287,16 +291,58 @@ async function loadPortalDays() {
 // Update this if the intake form's URL ever changes.
 const INTAKE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSc0K5LW5VnsFEhjkdU6v3a8QNTAjDk_A5SRMQ2lPnfdQAhskA/viewform';
 
-const PLAN_SECTION_LABELS = {
-  diet: 'Diet',
-  morning_routine: 'Morning Routine',
-  evening_routine: 'Evening Routine',
-  womb_detox: 'Womb Detox Plan',
-  movement: 'Movement',
-  subconscious_reprogramming: 'Subconscious Reprogramming',
-  journaling: 'Journalling',
-  affirmations: 'Affirmations'
-};
+// Each of these gets its OWN page/tab (not an accordion inside one page).
+// "Your Profile at a Glance" (opening/profile/closing) stays a single page;
+// everything below is built dynamically so we're not hand-writing 9 nearly
+// identical locked/unlocked page blocks in the HTML.
+const PLAN_SECTIONS = [
+  { key: 'diet', label: 'Diet', icon: '🌿' },
+  { key: 'morning_routine', label: 'Morning Routine', icon: '☀️' },
+  { key: 'evening_routine', label: 'Evening Routine', icon: '🌘' },
+  { key: 'womb_detox', label: 'Womb Detox', icon: '🌿' },
+  { key: 'movement', label: 'Movement', icon: '🏋️' },
+  { key: 'subconscious_reprogramming', label: 'Subconscious Reprogramming', icon: '🕯️' },
+  { key: 'journaling', label: 'Journalling', icon: '📓' },
+  { key: 'affirmations', label: 'Affirmations', icon: '✦' },
+  { key: 'daily_checklist', label: 'Daily Non-Negotiables', icon: '📋' }
+];
+
+// Builds nav buttons + page markup for each plan section, once, at load time.
+// Nav buttons go in the desktop top nav only (it already scrolls
+// horizontally) -- the mobile bottom bar only has room for 5 icons, so on
+// mobile these are reached via the "Explore Your Full Plan" list on the
+// Profile at a Glance page instead of cluttering the fixed bottom nav.
+function buildPlanSectionPagesAndNav() {
+  const pagesContainer = document.getElementById('plan-detail-pages');
+  let insertionPoint = document.getElementById('nav-yourplan');
+
+  PLAN_SECTIONS.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.dataset.page = 'plan-' + sec.key;
+    btn.id = 'nav-plan-' + sec.key;
+    btn.className = 'hidden';
+    btn.textContent = sec.label;
+    btn.addEventListener('click', () => showPage('plan-' + sec.key));
+    insertionPoint.insertAdjacentElement('afterend', btn);
+    insertionPoint = btn;
+
+    const pageDiv = document.createElement('div');
+    pageDiv.className = 'page';
+    pageDiv.id = 'page-plan-' + sec.key;
+    pageDiv.innerHTML = `
+      <div class="section-head"><h2>${sec.icon} ${sec.label}</h2></div>
+      <div id="plan-${sec.key}-locked" class="card" style="text-align:center;padding:44px 28px;">
+        <div class="eyebrow">Almost there</div>
+        <h3 style="font-size:20px;margin:10px 0 12px;">Please complete your onboarding form to view this section</h3>
+        <p style="font-size:13.5px;color:var(--ink-soft);max-width:420px;margin:0 auto 20px;">Once your answers are reviewed, this part of your plan will appear here.</p>
+        <a class="btn-primary" style="text-decoration:none;display:inline-block;" href="${INTAKE_FORM_URL}" target="_blank" rel="noopener">Complete onboarding form</a>
+      </div>
+      <div id="plan-${sec.key}-content" class="hidden card" style="white-space:pre-line;font-size:13.5px;line-height:1.7;"></div>
+    `;
+    pagesContainer.appendChild(pageDiv);
+  });
+}
+buildPlanSectionPagesAndNav();
 
 async function loadYourPlan(memberId) {
   document.getElementById('plan-form-link').href = INTAKE_FORM_URL;
@@ -318,6 +364,10 @@ async function loadYourPlan(memberId) {
     nourishContent.classList.add('hidden');
     partnerLocked.classList.remove('hidden');
     partnerContent.classList.add('hidden');
+    PLAN_SECTIONS.forEach(sec => {
+      document.getElementById('plan-' + sec.key + '-locked').classList.remove('hidden');
+      document.getElementById('plan-' + sec.key + '-content').classList.add('hidden');
+    });
     return;
   }
 
@@ -334,24 +384,25 @@ async function loadYourPlan(memberId) {
 
   document.getElementById('plan-opening').textContent = plan.opening_letter || '';
   document.getElementById('plan-profile').textContent = plan.profile_summary || '';
-  document.getElementById('plan-checklist').textContent = plan.daily_checklist || '';
   document.getElementById('plan-closing').textContent = plan.closing_letter || '';
 
-  const sectionsHtml = Object.keys(PLAN_SECTION_LABELS).map((key, i) => {
-    const text = plan[key];
-    if (!text) return '';
-    return `<div class="module${i === 0 ? ' open' : ''}">
-      <button class="module-head" data-toggle="module"><div class="dot" style="border:none;">🌿</div>
-        <div class="titles"><h3>${PLAN_SECTION_LABELS[key]}</h3></div>
-        <span class="chevron">⌄</span></button>
-      <div class="module-body"><div class="module-body-inner">${escapeHtml(text)}</div></div>
-    </div>`;
-  }).join('');
-  document.getElementById('plan-sections').innerHTML = sectionsHtml ||
-    '<p style="font-size:13px;color:var(--ink-soft);">This plan has no section content yet.</p>';
+  // Populate each section's own page, and build the table-of-contents
+  // list on the Profile page that links to each one.
+  const tocList = document.getElementById('plan-toc-list');
+  tocList.innerHTML = '';
+  PLAN_SECTIONS.forEach(sec => {
+    const secLocked = document.getElementById('plan-' + sec.key + '-locked');
+    const secContent = document.getElementById('plan-' + sec.key + '-content');
+    secLocked.classList.add('hidden');
+    secContent.classList.remove('hidden');
+    secContent.textContent = plan[sec.key] || 'This section has not been added yet.';
 
-  document.querySelectorAll('#plan-sections [data-toggle="module"]').forEach(btn => {
-    btn.addEventListener('click', () => btn.closest('.module').classList.toggle('open'));
+    const tocBtn = document.createElement('button');
+    tocBtn.className = 'btn-ghost';
+    tocBtn.style.cssText = 'display:block;width:100%;text-align:left;';
+    tocBtn.textContent = sec.icon + '  ' + sec.label;
+    tocBtn.addEventListener('click', () => showPage('plan-' + sec.key));
+    tocList.appendChild(tocBtn);
   });
 }
 

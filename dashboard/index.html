@@ -202,7 +202,7 @@
   <nav class="portal-nav" aria-label="Portal sections">
     <!-- <button data-page="today">Today</button> -->
     <button data-page="portaldays" id="nav-portaldays" aria-current="page">Portal Days</button>
-    <button data-page="yourplan" id="nav-yourplan" class="hidden">Your Plan</button>
+    <button data-page="yourplan" id="nav-yourplan" class="hidden">Your Profile at a Glance</button>
     <button data-page="nourish" id="nav-nourish" class="hidden">Nourish</button>
     <button data-page="partner" id="nav-partner" class="hidden">For Your Partner</button>
     <button data-page="circle" id="nav-circle" class="hidden">Circle</button>
@@ -244,9 +244,9 @@
     <div class="grid3" id="portal-days-grid"></div>
   </div>
 
-  <!-- PAGE: YOUR PLAN -->
+  <!-- PAGE: PROFILE AT A GLANCE -->
   <div class="page" id="page-yourplan">
-    <div class="section-head"><h2>Your Personalised Plan</h2></div>
+    <div class="section-head"><h2>Your Profile at a Glance</h2></div>
 
     <div id="plan-locked" class="card" style="text-align:center;padding:44px 28px;">
       <div class="eyebrow">Almost there</div>
@@ -260,18 +260,22 @@
 
       <div class="card" id="plan-profile" style="margin-bottom:28px;white-space:pre-line;font-size:13.5px;line-height:1.7;background:var(--ivory-2);"></div>
 
-      <div class="module-list" id="plan-sections"></div>
-
-      <div class="card" id="plan-checklist" style="margin:28px 0;white-space:pre-line;font-size:13.5px;line-height:1.7;background:var(--ivory-2);"></div>
+      <div class="card" style="margin-bottom:28px;">
+        <h3 style="font-size:16px;margin-bottom:14px;">Explore Your Full Plan</h3>
+        <div id="plan-toc-list" style="display:grid;gap:8px;"></div>
+      </div>
 
       <div class="card" id="plan-closing" style="white-space:pre-line;font-size:14px;line-height:1.7;font-style:italic;"></div>
     </div>
   </div>
 
+  <!-- Individual plan section pages are injected here by app.js -->
+  <div id="plan-detail-pages"></div>
+
   <!-- PAGE: NOURISH -->
   <div class="page" id="page-nourish">
     <div class="section-head"><h2>Nourish</h2></div>
-    <p style="font-size:13px;color:var(--ink-soft);margin:-8px 0 20px;max-width:520px;">Recipe suggestions aligned with your Diet section in Your Plan — same guidance, made into meals.</p>
+    <p style="font-size:13px;color:var(--ink-soft);margin:-8px 0 20px;max-width:520px;">Recipe suggestions matched to your personalised diet — same guidance, made into meals.</p>
 
     <div id="nourish-locked" class="card" style="text-align:center;padding:44px 28px;">
       <div class="eyebrow">Almost there</div>
