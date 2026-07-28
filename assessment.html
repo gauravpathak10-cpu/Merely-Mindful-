@@ -686,15 +686,6 @@ const offerContent = {
     price: "€24",
     link: "https://merelymindful.com/workshop.html"
   },
-  portal: {
-    rank: 1,
-    label: "Your next step",
-    title: "The 9-Day Conception Portal",
-    body: "Nine self-paced recorded classes to guide you through a complete conscious conception reset — nervous system, womb, and ancestral healing, structured into nine days you can move through whenever you're ready.",
-    short: "A structured, self-paced reset you can move through in your own time.",
-    price: "€150",
-    link: "https://merelymindful.com/portal.html"
-  },
   oneToOne: {
     rank: 2,
     label: "What you need right now",
@@ -707,10 +698,10 @@ const offerContent = {
   program: {
     rank: 3,
     label: "Your next step",
-    title: "6 Weeks of Conscious Conception",
-    body: "A six-week guided container — live sessions, community, and a complete framework to restore your body's natural conditions for conception, walked through with structure and real support around you.",
-    short: "A full six-week container, with live sessions and community around you.",
-    price: "€1,500",
+    title: "3 Months of Conscious Conception",
+    body: "A three-month guided container — live sessions, community, and a complete framework to restore your body's natural conditions for conception, walked through with structure and real support around you.",
+    short: "A full three-month container, with live sessions and community around you.",
+    price: "€2,499",
     link: "https://merelymindful.com/programme.html"
   }
 };
@@ -824,7 +815,7 @@ function getOfferTier(intensityLevel, hopelessScore, readiness) {
 
   if (rank >= 3) return 'oneToOne';
   if (rank === 2) return 'program';
-  if (rank === 1) return 'portal';
+  if (rank === 1) return 'program';
   return 'masterclass';
 }
 
@@ -902,7 +893,7 @@ function revealResult() {
   // Show the other 3 offers underneath as quiet cards, ordered by how close their
   // depth of support is to the recommended one — so the list reads as a logical
   // path outward from the recommendation, not a random or strictly price-based list.
-  const allTiers = ['masterclass', 'portal', 'oneToOne', 'program'];
+  const allTiers = ['masterclass', 'oneToOne', 'program'];
   const recommendedRank = offer.rank;
   const remainingTiers = allTiers
     .filter(t => t !== offerTier)
