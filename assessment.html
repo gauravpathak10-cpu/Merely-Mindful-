@@ -193,7 +193,7 @@
     margin-bottom: 6px;
     display: block;
   }
-  input[type="text"], input[type="email"] {
+  input[type="text"], input[type="email"], input[type="tel"] {
     width: 100%;
     font-family: 'Inter', sans-serif;
     font-size: 15px;
@@ -204,7 +204,7 @@
     background: var(--cream);
     color: var(--charcoal);
   }
-  input[type="text"]:focus, input[type="email"]:focus {
+  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
     outline: none;
     border-color: var(--gold);
     background: #fff;
@@ -448,6 +448,12 @@
       <label class="field-label">Email</label>
       <input type="email" id="inputEmail" placeholder="you@email.com">
       <p class="field-error" id="emailError"></p>
+      <label class="field-label">Instagram handle</label>
+      <input type="text" id="inputInstagram" placeholder="@yourusername">
+      <p class="field-error" id="instagramError"></p>
+      <label class="field-label">Phone number</label>
+      <input type="tel" id="inputPhone" placeholder="+353 87 123 4567">
+      <p class="field-error" id="phoneError"></p>
       <button class="gate-cta" onclick="revealResult()">Reveal my archetype</button>
       <p class="gate-note">No spam, ever — just your result and occasional notes from Oshika.</p>
     </div>
@@ -822,19 +828,30 @@ function getOfferTier(intensityLevel, hopelessScore, readiness) {
 function revealResult() {
   const nameInput = document.getElementById('inputName');
   const emailInput = document.getElementById('inputEmail');
+  const instagramInput = document.getElementById('inputInstagram');
+  const phoneInput = document.getElementById('inputPhone');
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
+  const instagram = instagramInput.value.trim();
+  const phone = phoneInput.value.trim();
   const nameError = document.getElementById('nameError');
   const emailError = document.getElementById('emailError');
+  const instagramError = document.getElementById('instagramError');
+  const phoneError = document.getElementById('phoneError');
 
   // Reset error state
   nameInput.style.borderColor = '';
   emailInput.style.borderColor = '';
+  instagramInput.style.borderColor = '';
+  phoneInput.style.borderColor = '';
   nameError.classList.remove('show');
   emailError.classList.remove('show');
+  instagramError.classList.remove('show');
+  phoneError.classList.remove('show');
 
   let hasError = false;
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phonePattern = /^[+\d][\d\s()-]{6,}$/;
 
   if (!name) {
     nameInput.style.borderColor = '#8B1E3F';
@@ -852,6 +869,25 @@ function revealResult() {
     emailInput.style.borderColor = '#8B1E3F';
     emailError.textContent = "That email doesn't look quite right — please check it.";
     emailError.classList.add('show');
+    hasError = true;
+  }
+
+  if (!instagram) {
+    instagramInput.style.borderColor = '#8B1E3F';
+    instagramError.textContent = "Please share your Instagram handle.";
+    instagramError.classList.add('show');
+    hasError = true;
+  }
+
+  if (!phone) {
+    phoneInput.style.borderColor = '#8B1E3F';
+    phoneError.textContent = "Please enter your phone number.";
+    phoneError.classList.add('show');
+    hasError = true;
+  } else if (!phonePattern.test(phone)) {
+    phoneInput.style.borderColor = '#8B1E3F';
+    phoneError.textContent = "That phone number doesn't look quite right — please check it.";
+    phoneError.classList.add('show');
     hasError = true;
   }
 
@@ -916,7 +952,7 @@ function revealResult() {
   otherOffersWrap.classList.remove('hidden');
 
   const leadData = {
-    name, email, winner, scores,
+    name, email, instagram, phone, winner, scores,
     intensityLevel, offerTier,
     hopelessScore: window._hopelessScore,
     readiness: window._readiness
