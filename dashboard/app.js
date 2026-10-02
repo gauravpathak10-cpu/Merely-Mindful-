@@ -152,7 +152,7 @@ function renderToday(member) {
     setRing('care', {});
     document.getElementById('phase-name').textContent = 'We are holding space for you';
     document.getElementById('phase-detail').textContent =
-      'There is no need to track anything right now. When you are ready, Oshika would like to speak with you directly.';
+      'There is no need to track anything right now. When you are ready, Oshikha would like to speak with you directly.';
     document.getElementById('wheel-caption').classList.add('hidden-count');
     countToggle.classList.add('hidden');
     stepsBar.innerHTML = '<p class="care-quiet">There is nothing on your list right now — that is alright.</p>';
