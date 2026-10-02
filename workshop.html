@@ -448,7 +448,7 @@ document.querySelectorAll(".reveal").forEach(r=>io.observe(r));
   document.querySelectorAll(".countdown").forEach(el=>{ el.textContent = txt ? (el.dataset.sep||"")+txt : ""; });
 })();
 
-// Lead capture → Stripe. Same Apps Script endpoint + "masterclass_registration" source as free-masterclass.html, so the sheet routing is unchanged.
+// Lead capture → Stripe. Own "paid_workshop_registration" source so these leads land in their own "Workshop Registrations" tab and sync to Kit — see updated_lead_capture_script.gs.
 const LEAD_CAPTURE_URL = "https://script.google.com/macros/s/AKfycbwMuyHV1RiURDdIclA4oLn6uX9-Lm3S13i6iBJahIoMOKJDk9zLFV2kHS6X3jaGHhWUHA/exec";
 const STRIPE_PAYMENT_URL = "https://buy.stripe.com/9B68wR0IL5vH5E3gUU6kg0w"; // €24 live masterclass, 16 Oct 2026
 const SESSION = "Friday, 16 October 2026 — 4:00 PM Irish time (8:30 PM India / 11:00 AM US Eastern) — Zoom, 90 min — €24";
@@ -477,7 +477,7 @@ document.querySelector('.reg-form').addEventListener('submit',function(e){
   if(!challenge){showError('fmChallengeError',"Please share a little about what's going on.");bad=true;}
   if(bad){document.querySelector('.field-error.show')?.closest('.field').scrollIntoView({behavior:'smooth',block:'center'});return;}
 
-  const leadData={source:"masterclass_registration",fullName,email,phone,session:SESSION,trying,challenge,readiness:"",invest:""};
+  const leadData={source:"paid_workshop_registration",fullName,email,phone,session:SESSION,trying,challenge};
   btn.disabled=true; btn.textContent="Taking you to payment…";
   fetch(LEAD_CAPTURE_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(leadData)})
     .catch(err=>console.error('Lead capture failed:',err))
