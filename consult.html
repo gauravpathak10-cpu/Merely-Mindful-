@@ -189,6 +189,21 @@ section{padding:6rem 0}
 .creds span{border:1px solid var(--rule);padding:.35rem .8rem;font-size:.85rem;color:var(--mid);background:var(--surface)}
 @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:3rem}.about-photo{max-width:420px}.about-photo .cap{right:8px}}
 
+
+/* podcasts */
+.pods{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:2.8rem}
+.pod{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:var(--surface);border:1px solid rgba(156,122,69,.35);transition:transform .2s,box-shadow .2s}
+.pod:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px rgba(78,31,44,.55)}
+.pod-thumb{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#4E1F2C}
+.pod-thumb img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.9)}
+.pod-thumb.sq img{object-fit:contain;background:#4E1F2C}
+.pod-play{position:absolute;inset:auto auto 12px 12px;width:42px;height:42px;border-radius:50%;background:#7A1030;color:#ECE9E1;display:flex;align-items:center;justify-content:center;font-size:14px;padding-left:3px}
+.pod-show{display:block;padding:1.1rem 1.2rem 0;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:#9C7A45;font-weight:600;line-height:1.4}
+.pod-title{display:block;padding:.5rem 1.2rem 0;font-size:1.18rem;line-height:1.3;color:#4E1F2C;font-weight:600;flex:1}
+.pod-cta{display:block;padding:1rem 1.2rem 1.2rem;font-size:.95rem;font-style:italic;color:#7A1030}
+@media(max-width:980px){.pods{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.pods{grid-template-columns:1fr}}
+
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem}
 .step{border-top:2px solid var(--wine);padding-top:1.3rem}
@@ -288,6 +303,7 @@ footer .om{font-size:1.2rem;color:var(--page);margin-bottom:1rem;font-style:ital
     <li>Medicine Festival</li>
     <li>Yoga Fest Ireland</li>
     <li>Future Fertility Show 2025</li>
+    <li><a href="#listen" style="color:inherit;text-decoration:none">Heard on 4 podcasts</a></li>
     <li>Certified Hormone Health Coach</li>
     <li>300-hr Breathwork Facilitator</li>
   </ul>
@@ -489,8 +505,25 @@ footer .om{font-size:1.2rem;color:var(--page);margin-bottom:1rem;font-style:ital
   </div>
 </section>
 
+<!-- PODCASTS -->
+<section class="band" id="listen">
+  <div class="wrap">
+    <div class="center reveal">
+      <span class="label">As heard on</span>
+      <h2 style="margin-top:1rem">Listen before <em>you choose.</em></h2>
+      <p class="lede narrow">Hear Oshikha share the conscious conception work behind your Blueprint — in her own voice.</p>
+    </div>
+    <div class="pods reveal">
+      <a class="pod" href="https://www.youtube.com/watch?v=pTIISHaylLE&t=3110s" target="_blank" rel="noopener"><span class="pod-thumb"><img src="https://i.ytimg.com/vi/pTIISHaylLE/hqdefault.jpg" alt="" loading="lazy"/><span class="pod-play">▶</span></span><span class="pod-show">The Wholesome Fertility Podcast</span><span class="pod-title">How Safety, Stillness &amp; Conscious Conception Prepare the Body to Receive Life</span><span class="pod-cta">Listen on YouTube →</span></a>
+      <a class="pod" href="https://www.youtube.com/watch?v=Nq3YnqYsALY&t=1688s" target="_blank" rel="noopener"><span class="pod-thumb"><img src="https://i.ytimg.com/vi/Nq3YnqYsALY/hqdefault.jpg" alt="" loading="lazy"/><span class="pod-play">▶</span></span><span class="pod-show">9 &amp; Beyond — The Pregnancy Podcast</span><span class="pod-title">Conscious Conception: Preparing Mind, Body &amp; Soul for Pregnancy</span><span class="pod-cta">Listen on YouTube →</span></a>
+      <a class="pod" href="https://www.youtube.com/watch?v=leTHA2N449E&t=735s" target="_blank" rel="noopener"><span class="pod-thumb"><img src="https://i.ytimg.com/vi/leTHA2N449E/hqdefault.jpg" alt="" loading="lazy"/><span class="pod-play">▶</span></span><span class="pod-show">Cosmic Conversations</span><span class="pod-title">Conscious Conception, Womb Healing &amp; Spiritual Pregnancy</span><span class="pod-cta">Listen on YouTube →</span></a>
+      <a class="pod" href="https://open.spotify.com/episode/3Fez37qiZCnZI7iEUYkiNR" target="_blank" rel="noopener"><span class="pod-thumb sq"><img src="https://image-cdn-fa.spotifycdn.com/image/ab67656300005f1fc08a9566794a9306e6fd1cac" alt="" loading="lazy"/><span class="pod-play">▶</span></span><span class="pod-show">Positive Pregnancy, Birth &amp; Motherhood</span><span class="pod-title">Conscious Conception and Beyond</span><span class="pod-cta">Listen on Spotify →</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
-<section class="band">
+<section>
   <div class="wrap">
     <div class="center reveal">
       <span class="label">How it works</span>
@@ -499,7 +532,7 @@ footer .om{font-size:1.2rem;color:var(--page);margin-bottom:1rem;font-style:ital
     <div class="steps">
       <div class="step reveal"><div class="n">01</div><h3>Choose your experience</h3><p>Seed, Bloom or Sacred — the level of personal support you want.</p></div>
       <div class="step reveal"><div class="n">02</div><h3>Share your story</h3><p>Complete your intake questionnaire straight after checkout.</p></div>
-      <div class="step reveal"><div class="n">03</div><h3>Receive &amp; be held</h3><p>Your Blueprint is prepared and reviewed by Oshikha. Bloom and Sacred include your private sessions. Timings are confirmed with your booking.</p></div>
+      <div class="step reveal"><div class="n">03</div><h3>Receive &amp; be held</h3><p>Your Blueprint is prepared and reviewed by Oshikha. Bloom and Sacred clients book their private sessions straight into her calendar.</p></div>
       <div class="step reveal"><div class="n">04</div><h3>Begin with intention</h3><p>Use your Blueprint as your practical reference as you work through your priorities and practices.</p></div>
     </div>
     <p class="steps-note reveal">Your Blueprint is a starting point, not a rigid prescription — approach it with flexibility and appropriate professional guidance.</p>
@@ -532,7 +565,7 @@ footer .om{font-size:1.2rem;color:var(--page);margin-bottom:1rem;font-style:ital
     <div class="faq reveal">
       <details><summary>Which tier is right for me?</summary><p>Seed if you want a written, personalised starting point to work with independently. Bloom if you want to feel the work in your body, not just read it — one private session with Oshikha. Sacred if you want more space: two private sessions to go deeper.</p></details>
       <details><summary>What is the difference between Bloom and Sacred?</summary><p>Bloom includes one private breathwork and healing session. Sacred includes two. Neither Blueprint offer includes ongoing voice-note support — that lives in the Private Immersion.</p></details>
-      <details><summary>What happens after I pay?</summary><p>You're taken straight to your intake questionnaire. Your answers shape your Blueprint. For Bloom and Sacred, you'll be contacted to schedule your private session(s). Delivery and session timings are confirmed as part of your booking.</p></details>
+      <details><summary>What happens after I pay?</summary><p>You're taken straight to your intake questionnaire. Your answers shape your Blueprint. For Bloom and Sacred, you'll then book your private session(s) straight into Oshikha's calendar — Sacred clients use the same link twice. Blueprint delivery timings are confirmed as part of your booking.</p></details>
       <details><summary>What happens in a private healing session?</summary><p>A guided one-to-one experience drawing on breathwork and emotional wellbeing practices. The exact approach depends on the session and your agreed intentions. Sessions are not a substitute for medical or mental healthcare.</p></details>
       <details><summary>Can I use the Blueprint alongside fertility treatment?</summary><p>It can complement your broader wellbeing practices, but it does not replace medical advice or treatment. Discuss changes to diet, supplements, herbs or other health practices with your healthcare team, especially if you're in treatment or taking medication.</p></details>
       <details><summary>Is the Sacred Body Blueprint a fertility treatment?</summary><p>No. It is a personalised preconception wellbeing and educational resource. It does not diagnose or treat infertility, replace fertility investigations or guarantee conception. Continue working with your fertility specialist or other qualified healthcare professionals for medical assessment and treatment.</p></details>

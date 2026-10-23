@@ -189,7 +189,7 @@ document.getElementById("intake").addEventListener("submit",function(e){
     .catch(err=>console.error("Intake capture failed:",err))
     .finally(()=>{
       const s=tier?tier.sessions:0;
-      const sessionLine=s?"<p>Your "+(s===2?"two private sessions":"private session")+" with Oshikha will be scheduled with you personally — look out for a message on WhatsApp or email.</p>":"";
+      const sessionLine=s?"<p>Now book your "+(s===2?"two private sessions":"private session")+" with Oshikha"+(s===2?" — book your first now and use the same link again for your second":"")+".</p><p><a href=\"https://calendly.com/merelymindful/the-sacred-body-blueprint\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:.6rem;background:#7A1030;color:#ECE9E1;padding:1rem 2rem;text-decoration:none;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.9rem\">Book my session →</a></p>":"";
       document.getElementById("main").innerHTML='<div class="done"><img src="img/blueprint/goddess-wine.png" alt=""/><span class="label">Received with gratitude</span><h1>Your story is <em>held.</em></h1><p>Thank you, '+(data.fullName.split(" ")[0]||"sister").replace(/[<>&"]/g,"")+'. Oshikha will now prepare your Sacred Body Blueprint from everything you have shared. It will arrive at <strong>'+data.email.replace(/[<>&"]/g,"")+'</strong>.</p>'+sessionLine+'<p>This is your reminder, sister — you have already taken the first intentional step.</p><p class="om">Om Namah Shivay 🤍</p></div>';
       window.scrollTo({top:0,behavior:"smooth"});
     });
