@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="robots" content="noindex"/>
+<title>Your Sacred Body Blueprint — Intake | Merely Mindful</title>
+<link rel="icon" type="image/png" href="img/blueprint/logo-mark.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--page:#ECE9E1;--surface:#F5F3EE;--section:#E3DCD0;--rule:rgba(156,122,69,.35);--wine:#7A1030;--plum:#4E1F2C;--bronze:#9C7A45;--text:#4A3629;--mid:#5F4A3D;--soft:#7D6858;--serif:"Cormorant Garamond",Georgia,serif}
+body{background:var(--page);color:var(--text);font-family:var(--serif);font-size:20px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.nav{border-bottom:1px solid var(--rule)}
+.nav .in{max-width:820px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;gap:.7rem;color:var(--wine);letter-spacing:.2em;text-transform:uppercase;font-weight:500}
+.nav img{height:44px}
+main{max-width:820px;margin:0 auto;padding:4rem 24px 6rem}
+.label{font-size:.78rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--bronze)}
+h1{font-weight:500;text-transform:uppercase;color:var(--wine);font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.04;margin:1rem 0 1.2rem}
+h1 em{font-style:italic;text-transform:none;font-weight:400;color:var(--plum)}
+.lede{font-size:1.3rem;color:var(--mid)}
+.paid{display:inline-block;margin-top:1.6rem;background:var(--wine);color:var(--page);padding:.5rem 1rem;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600}
+fieldset{border:none;margin-top:3.2rem;padding-top:2rem;border-top:1px solid var(--rule)}
+legend{font-size:1.7rem;color:var(--wine);text-transform:uppercase;letter-spacing:.04em;font-weight:500}
+.hint{font-style:italic;color:var(--soft);font-size:1.05rem;margin:.3rem 0 .4rem}
+.field{margin-top:1.6rem}
+label.q{display:block;font-weight:600;color:var(--plum);font-size:1.15rem;margin-bottom:.45rem}
+label.q .opt{font-weight:400;font-style:italic;color:var(--soft);font-size:.95rem}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;font:inherit;font-size:1.1rem;color:var(--text);background:var(--surface);border:1px solid var(--rule);padding:.8rem 1rem;border-radius:0;outline:none;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--wine)}
+textarea{min-height:110px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:.6rem}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:inline-block;border:1px solid var(--rule);background:var(--surface);padding:.5rem 1rem;font-size:1.05rem;transition:all .15s}
+.chips input:checked+span{background:var(--wine);color:var(--page);border-color:var(--wine)}
+.chips input:focus-visible+span{outline:2px solid var(--wine);outline-offset:2px}
+.consent{display:flex;gap:.8rem;align-items:flex-start;font-size:1.05rem;color:var(--mid);margin-top:2.4rem}
+.consent input{margin-top:.4rem;accent-color:var(--wine);width:18px;height:18px;flex:none}
+.err{color:var(--wine);font-size:.95rem;font-style:italic;margin-top:.35rem;display:none}
+.invalid .err{display:block}
+.invalid input,.invalid textarea,.invalid select{border-color:var(--wine)}
+.btn{display:block;width:100%;margin-top:2.4rem;font:inherit;font-weight:600;font-size:.95rem;letter-spacing:.2em;text-transform:uppercase;padding:1.2rem;background:var(--wine);color:var(--page);border:1px solid var(--wine);cursor:pointer}
+.btn:hover{background:var(--plum)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.done{text-align:center;padding:3rem 0}
+.done img{width:90px;margin:0 auto 1.6rem}
+.done p{font-size:1.25rem;color:var(--mid);max-width:600px;margin:1rem auto 0}
+.done .om{font-style:italic;color:var(--wine);margin-top:2rem}
+footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;padding:0 24px 3rem;max-width:760px;margin:0 auto}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="in"><img src="img/blueprint/logo-mark.png" alt=""/>Merely Mindful</div></nav>
+
+<main id="main">
+  <span class="label">The Sacred Body Blueprint · Intake</span>
+  <h1>Welcome, sister. <em>Now, share your story.</em></h1>
+  <p class="lede">Your answers become the foundation of your Blueprint. There are no right or wrong answers — write as much or as little as feels true. Everything you share is held in confidence.</p>
+  <span class="paid" id="tierBadge">Your Blueprint is confirmed</span>
+
+  <form id="intake" novalidate>
+    <fieldset>
+      <legend>About you</legend>
+      <div class="row">
+        <div class="field" data-req><label class="q" for="fullName">Full name</label><input type="text" id="fullName" autocomplete="name"/><p class="err">Please share your name.</p></div>
+        <div class="field" data-req data-email><label class="q" for="email">Email</label><input type="email" id="email" autocomplete="email"/><p class="err">Please enter a valid email — your Blueprint is sent here.</p></div>
+      </div>
+      <div class="row">
+        <div class="field" data-req><label class="q" for="phone">WhatsApp / phone</label><input type="tel" id="phone" autocomplete="tel"/><p class="err">Please enter your number.</p></div>
+        <div class="field"><label class="q" for="location">Where are you based? <span class="opt">(city, country)</span></label><input type="text" id="location"/></div>
+      </div>
+      <div class="row">
+        <div class="field"><label class="q" for="age">Your age</label><input type="text" id="age" inputmode="numeric"/></div>
+        <div class="field"><label class="q" for="insta">Instagram <span class="opt">(optional)</span></label><input type="text" id="insta" placeholder="@"/></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your journey</legend>
+      <div class="field" data-req data-radio="stage">
+        <label class="q">Where are you right now?</label>
+        <div class="chips">
+          <label><input type="radio" name="stage" value="Preparing before trying"/><span>Preparing before trying</span></label>
+          <label><input type="radio" name="stage" value="Trying under 12 months"/><span>Trying, under 12 months</span></label>
+          <label><input type="radio" name="stage" value="Trying 1–2 years"/><span>Trying 1–2 years</span></label>
+          <label><input type="radio" name="stage" value="Trying 2+ years"/><span>Trying 2+ years</span></label>
+          <label><input type="radio" name="stage" value="IVF / fertility treatment"/><span>IVF / fertility treatment</span></label>
+        </div>
+        <p class="err">Please choose the closest option.</p>
+      </div>
+      <div class="field"><label class="q" for="history">Anything from your journey so far you'd like Oshikha to know? <span class="opt">(diagnoses, treatments, losses — only what you wish to share)</span></label><textarea id="history"></textarea></div>
+      <div class="field" data-req><label class="q" for="intention">What is your deepest intention for the next 90 days?</label><textarea id="intention"></textarea><p class="err">Please share a few words.</p></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Your cycle</legend>
+      <div class="row">
+        <div class="field"><label class="q" for="cycleLength">Typical cycle length</label>
+          <select id="cycleLength"><option value="">Choose…</option><option>Under 25 days</option><option>25–32 days</option><option>Over 32 days</option><option>Irregular / unpredictable</option><option>Not sure</option></select></div>
+        <div class="field"><label class="q" for="period">Your period feels…</label>
+          <select id="period"><option value="">Choose…</option><option>Light</option><option>Moderate</option><option>Heavy</option><option>Painful</option><option>Varies a lot</option></select></div>
+      </div>
+      <div class="field"><label class="q" for="cycleNotes">Anything you notice around your cycle? <span class="opt">(PMS, spotting, mood, energy, pain)</span></label><textarea id="cycleNotes"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Nourish</legend>
+      <div class="field"><label class="q">How do you eat?</label>
+        <div class="chips" id="dietChips">
+          <label><input type="checkbox" name="diet" value="Vegetarian"/><span>Vegetarian</span></label>
+          <label><input type="checkbox" name="diet" value="Vegan"/><span>Vegan</span></label>
+          <label><input type="checkbox" name="diet" value="Eats meat/fish"/><span>Eat meat / fish</span></label>
+          <label><input type="checkbox" name="diet" value="Mostly home-cooked"/><span>Mostly home-cooked</span></label>
+          <label><input type="checkbox" name="diet" value="Often on the go"/><span>Often on the go</span></label>
+          <label><input type="checkbox" name="diet" value="Skips meals"/><span>Often skip meals</span></label>
+        </div></div>
+      <div class="field"><label class="q" for="dayOfFood">Describe a typical day of food and drink</label><textarea id="dayOfFood" placeholder="Breakfast… lunch… dinner… snacks, tea, coffee, alcohol"></textarea></div>
+      <div class="field"><label class="q" for="digestion">Digestion and energy <span class="opt">(bloating, cravings, energy dips)</span></label><textarea id="digestion"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Regulate</legend>
+      <div class="row">
+        <div class="field"><label class="q" for="sleep">Usual bedtime &amp; wake time</label><input type="text" id="sleep" placeholder="e.g. 11:30pm – 7am"/></div>
+        <div class="field"><label class="q" for="stress">Stress level most days</label>
+          <select id="stress"><option value="">Choose…</option><option>1 — calm</option><option>2</option><option>3 — manageable</option><option>4</option><option>5 — overwhelmed</option></select></div>
+      </div>
+      <div class="field"><label class="q" for="work">Your work and daily rhythm <span class="opt">(hours, screen time, movement)</span></label><textarea id="work"></textarea></div>
+      <div class="field"><label class="q" for="practices">Practices you already have <span class="opt">(yoga, breathwork, meditation, prayer)</span></label><input type="text" id="practices"/></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Understand &amp; reconnect</legend>
+      <div class="field"><label class="q" for="emotional">What feels heaviest for you emotionally right now?</label><textarea id="emotional"></textarea></div>
+      <div class="field"><label class="q" for="body">How would you describe your relationship with your body?</label><textarea id="body"></textarea></div>
+      <div class="field"><label class="q" for="relationship">How supported do you feel by your partner and the people around you? <span class="opt">(optional)</span></label><textarea id="relationship"></textarea></div>
+      <div class="field"><label class="q" for="home">Your home &amp; lifestyle <span class="opt">(products you use, smoking, alcohol, environment)</span></label><textarea id="home"></textarea></div>
+      <div class="field"><label class="q" for="anything">Anything else you want Oshikha to know before she prepares your Blueprint?</label><textarea id="anything"></textarea></div>
+    </fieldset>
+
+    <div class="field" data-consent>
+      <label class="consent"><input type="checkbox" id="consent"/>I understand the Sacred Body Blueprint is an educational and wellbeing resource, not medical advice or fertility treatment, and I will consult a qualified healthcare provider about my specific situation.</label>
+      <p class="err">Please tick to continue.</p>
+    </div>
+
+    <button class="btn" type="submit" id="submitBtn">Send my story to Oshikha</button>
+  </form>
+</main>
+
+<footer>Om Namah Shivay 🤍 · Merely Mindful Limited</footer>
+
+<script>
+const LEAD_CAPTURE_URL="https://script.google.com/macros/s/AKfycbwMuyHV1RiURDdIclA4oLn6uX9-Lm3S13i6iBJahIoMOKJDk9zLFV2kHS6X3jaGHhWUHA/exec";
+const params=new URLSearchParams(location.search);
+const TIERS={seed:{name:"Seed",price:"€42",sessions:0},bloom:{name:"Bloom",price:"€222",sessions:1},sacred:{name:"Sacred",price:"€357",sessions:2}};
+const tierKey=(params.get("tier")||"").toLowerCase(); const tier=TIERS[tierKey]||null;
+if(tier) document.getElementById("tierBadge").textContent="✓ "+tier.name+" Blueprint · "+tier.price+" confirmed";
+const v=id=>(document.getElementById(id)?.value||"").trim();
+
+document.getElementById("intake").addEventListener("submit",function(e){
+  e.preventDefault();
+  let bad=false;
+  document.querySelectorAll(".field").forEach(f=>f.classList.remove("invalid"));
+  document.querySelectorAll("[data-req]").forEach(f=>{
+    let ok;
+    if(f.dataset.radio) ok=!!document.querySelector('input[name="'+f.dataset.radio+'"]:checked');
+    else { const el=f.querySelector("input,textarea,select"); ok=!!el.value.trim(); if(ok&&f.hasAttribute("data-email")) ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()); }
+    if(!ok){f.classList.add("invalid");bad=true;}
+  });
+  const c=document.querySelector("[data-consent]"); if(!document.getElementById("consent").checked){c.classList.add("invalid");bad=true;}
+  if(bad){document.querySelector(".field.invalid").scrollIntoView({behavior:"smooth",block:"center"});return;}
+
+  const data={source:"blueprint_intake",tier:tier?tier.name:(tierKey||"unknown"),stripeSession:params.get("session")||"",
+    fullName:v("fullName"),email:v("email"),phone:v("phone"),location:v("location"),age:v("age"),instagram:v("insta"),
+    stage:(document.querySelector('input[name="stage"]:checked')||{}).value||"",history:v("history"),intention:v("intention"),
+    cycleLength:v("cycleLength"),period:v("period"),cycleNotes:v("cycleNotes"),
+    diet:[...document.querySelectorAll('input[name="diet"]:checked')].map(x=>x.value).join(", "),dayOfFood:v("dayOfFood"),digestion:v("digestion"),
+    sleep:v("sleep"),stress:v("stress"),work:v("work"),practices:v("practices"),
+    emotional:v("emotional"),body:v("body"),relationship:v("relationship"),home:v("home"),anything:v("anything"),
+    submittedAt:new Date().toISOString()};
+  const btn=document.getElementById("submitBtn"); btn.disabled=true; btn.textContent="Sending your story…";
+  fetch(LEAD_CAPTURE_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify(data)})
+    .catch(err=>console.error("Intake capture failed:",err))
+    .finally(()=>{
+      const s=tier?tier.sessions:0;
+      const sessionLine=s?"<p>Your "+(s===2?"two private sessions":"private session")+" with Oshikha will be scheduled with you personally — look out for a message on WhatsApp or email.</p>":"";
+      document.getElementById("main").innerHTML='<div class="done"><img src="img/blueprint/goddess-wine.png" alt=""/><span class="label">Received with gratitude</span><h1>Your story is <em>held.</em></h1><p>Thank you, '+(data.fullName.split(" ")[0]||"sister").replace(/[<>&"]/g,"")+'. Oshikha will now prepare your Sacred Body Blueprint from everything you have shared. It will arrive at <strong>'+data.email.replace(/[<>&"]/g,"")+'</strong>.</p>'+sessionLine+'<p>This is your reminder, sister — you have already taken the first intentional step.</p><p class="om">Om Namah Shivay 🤍</p></div>';
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+});
+</script>
+</body>
+</html>
