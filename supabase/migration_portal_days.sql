@@ -46,5 +46,7 @@ on conflict (day_number) do nothing;
 --   update members set portal_enrolled = true
 --   where email in ('member1@example.com', 'member2@example.com');
 --
--- (Adjust the email list to match whoever actually purchased.)
+-- (Replace the placeholders with your purchasers' emails and run it in the
+-- Supabase SQL Editor only. Never commit real member emails here: this repo
+-- is public and GitHub Pages serves this file at merelymindful.com.)
 -- ============================================================
