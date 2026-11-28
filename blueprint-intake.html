@@ -202,7 +202,7 @@ function showThankYou(data,matched){
   const s=tier?tier.sessions:0;
   const sessionLine=s?'<p>Your private link'+(s===2?'s':'')+' to book your '+(s===2?'two sessions':'session')+' with Oshikha '+(s===2?'are':'is')+' in your confirmation email.</p>':'';
   const confirmLine=matched?'<p>A confirmation is on its way to your inbox. If you can\'t see it, check Promotions or Spam.</p>':'<p>Oshikha will confirm by email shortly.</p>';
-  document.getElementById("main").innerHTML='<div class="done"><img src="img/blueprint/goddess-wine.png" alt=""/><span class="label">Received with gratitude</span><h1>Your story is <em>held.</em></h1><p>Thank you, '+first+'. Your Sacred Body Blueprint is now being prepared from everything you\'ve shared. It will arrive at <strong>'+esc(data.email)+'</strong> within 24 hours.</p>'+confirmLine+sessionLine+'<p>This is your reminder, sister. You\'ve already taken the first intentional step.</p><p class="om">Om Namah Shivay 🤍</p></div>';
+  document.getElementById("main").innerHTML='<div class="done"><img src="img/blueprint/goddess-wine.png" alt=""/><span class="label">Received with gratitude</span><h1>Your story is <em>held.</em></h1><p>Thank you, '+first+'. Your Sacred Body Blueprint is now being prepared from everything you\'ve shared. It will arrive at <strong>'+esc(data.email)+'</strong> within 48 hours.</p>'+confirmLine+sessionLine+'<p>This is your reminder, sister. You\'ve already taken the first intentional step.</p><p class="om">Om Namah Shivay 🤍</p></div>';
   window.scrollTo({top:0,behavior:"smooth"});
 }
 
