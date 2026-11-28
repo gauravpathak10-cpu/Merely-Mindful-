@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="robots" content="noindex"/>
-<title>Your Sacred Body Blueprint — Intake | Merely Mindful</title>
+<title>Your Sacred Body Blueprint intake | Merely Mindful</title>
 <link rel="icon" type="image/png" href="img/blueprint/logo-mark.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -42,6 +42,15 @@ textarea{min-height:110px;resize:vertical}
 .chips input:focus-visible+span{outline:2px solid var(--wine);outline-offset:2px}
 .consent{display:flex;gap:.8rem;align-items:flex-start;font-size:1.05rem;color:var(--mid);margin-top:2.4rem}
 .consent input{margin-top:.4rem;accent-color:var(--wine);width:18px;height:18px;flex:none}
+.consent a{color:var(--wine)}
+.field+.field[data-consent]{margin-top:.4rem}
+.field+.field[data-consent] .consent{margin-top:1rem}
+.waopt{display:flex;gap:.6rem;align-items:flex-start;font-size:1rem;color:var(--mid);margin-top:.7rem;cursor:pointer}
+.waopt input{margin-top:.3rem;accent-color:var(--wine);width:17px;height:17px;flex:none}
+.waopt .o{font-style:italic;color:var(--soft);font-size:.92rem}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.sendErr{margin-top:2rem;border:1px solid var(--wine);background:var(--surface);padding:1rem 1.2rem;color:var(--plum);font-size:1.05rem}
+.sendErr a{color:var(--wine)}
 .err{color:var(--wine);font-size:.95rem;font-style:italic;margin-top:.35rem;display:none}
 .invalid .err{display:block}
 .invalid input,.invalid textarea,.invalid select{border-color:var(--wine)}
@@ -53,6 +62,7 @@ textarea{min-height:110px;resize:vertical}
 .done p{font-size:1.25rem;color:var(--mid);max-width:600px;margin:1rem auto 0}
 .done .om{font-style:italic;color:var(--wine);margin-top:2rem}
 footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;padding:0 24px 3rem;max-width:760px;margin:0 auto}
+footer a{color:var(--soft)}
 </style>
 </head>
 <body>
@@ -61,7 +71,7 @@ footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;pad
 <main id="main">
   <span class="label">The Sacred Body Blueprint · Intake</span>
   <h1>Welcome, sister. <em>Now, share your story.</em></h1>
-  <p class="lede">Your answers become the foundation of your Blueprint. There are no right or wrong answers — write as much or as little as feels true. Everything you share is held in confidence.</p>
+  <p class="lede">Your answers become the foundation of your Blueprint. There are no right or wrong answers. Write as much or as little as feels true. Everything you share is held in confidence.</p>
   <span class="paid" id="tierBadge">Your Blueprint is confirmed</span>
 
   <form id="intake" novalidate>
@@ -69,16 +79,17 @@ footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;pad
       <legend>About you</legend>
       <div class="row">
         <div class="field" data-req><label class="q" for="fullName">Full name</label><input type="text" id="fullName" autocomplete="name"/><p class="err">Please share your name.</p></div>
-        <div class="field" data-req data-email><label class="q" for="email">Email</label><input type="email" id="email" autocomplete="email"/><p class="err">Please enter a valid email — your Blueprint is sent here.</p></div>
+        <div class="field" data-req data-email><label class="q" for="email">Email</label><input type="email" id="email" autocomplete="email"/><p class="err">Please enter a valid email. Your Blueprint is sent here.</p></div>
       </div>
       <div class="row">
-        <div class="field" data-req><label class="q" for="phone">WhatsApp / phone</label><input type="tel" id="phone" autocomplete="tel"/><p class="err">Please enter your number.</p></div>
+        <div class="field" data-req><label class="q" for="phone">WhatsApp / phone</label><input type="tel" id="phone" autocomplete="tel" placeholder="+353 …"/><p class="hint">Please include your country code.</p><p class="err">Please enter your number.</p><label class="waopt"><input type="checkbox" id="waOptIn"/><span>Send me updates about my Blueprint on WhatsApp too <em class="o">(optional)</em></span></label></div>
         <div class="field"><label class="q" for="location">Where are you based? <span class="opt">(city, country)</span></label><input type="text" id="location"/></div>
       </div>
       <div class="row">
         <div class="field"><label class="q" for="age">Your age</label><input type="text" id="age" inputmode="numeric"/></div>
         <div class="field"><label class="q" for="insta">Instagram <span class="opt">(optional)</span></label><input type="text" id="insta" placeholder="@"/></div>
       </div>
+      <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input type="text" id="website" tabindex="-1" autocomplete="off"/></div>
     </fieldset>
 
     <fieldset>
@@ -94,7 +105,7 @@ footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;pad
         </div>
         <p class="err">Please choose the closest option.</p>
       </div>
-      <div class="field"><label class="q" for="history">Anything from your journey so far you'd like Oshikha to know? <span class="opt">(diagnoses, treatments, losses — only what you wish to share)</span></label><textarea id="history"></textarea></div>
+      <div class="field"><label class="q" for="history">Anything from your journey so far you'd like Oshikha to know? <span class="opt">(diagnoses, treatments, losses: only what you wish to share)</span></label><textarea id="history"></textarea></div>
       <div class="field" data-req><label class="q" for="intention">What is your deepest intention for the next 90 days?</label><textarea id="intention"></textarea><p class="err">Please share a few words.</p></div>
     </fieldset>
 
@@ -129,7 +140,7 @@ footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;pad
       <div class="row">
         <div class="field"><label class="q" for="sleep">Usual bedtime &amp; wake time</label><input type="text" id="sleep" placeholder="e.g. 11:30pm – 7am"/></div>
         <div class="field"><label class="q" for="stress">Stress level most days</label>
-          <select id="stress"><option value="">Choose…</option><option>1 — calm</option><option>2</option><option>3 — manageable</option><option>4</option><option>5 — overwhelmed</option></select></div>
+          <select id="stress"><option value="">Choose…</option><option>1 · calm</option><option>2</option><option>3 · manageable</option><option>4</option><option>5 · overwhelmed</option></select></div>
       </div>
       <div class="field"><label class="q" for="work">Your work and daily rhythm <span class="opt">(hours, screen time, movement)</span></label><textarea id="work"></textarea></div>
       <div class="field"><label class="q" for="practices">Practices you already have <span class="opt">(yoga, breathwork, meditation, prayer)</span></label><input type="text" id="practices"/></div>
@@ -148,12 +159,20 @@ footer{text-align:center;font-size:.9rem;color:var(--soft);font-style:italic;pad
       <label class="consent"><input type="checkbox" id="consent"/>I understand the Sacred Body Blueprint is an educational and wellbeing resource, not medical advice or fertility treatment, and I will consult a qualified healthcare provider about my specific situation.</label>
       <p class="err">Please tick to continue.</p>
     </div>
+    <div class="field" data-consent>
+      <label class="consent"><input type="checkbox" id="consentData"/><span>I agree that Merely Mindful can use the health and lifestyle details I share here to prepare my Blueprint. Oshikha prepares it with the help of AI writing tools and personally reviews every Blueprint before it's sent. <a href="privacy.html" target="_blank" rel="noopener">How your information is handled</a></span></label>
+      <p class="err">Please tick to continue.</p>
+    </div>
+    <div class="field">
+      <label class="consent"><input type="checkbox" id="newsletter"/><span>Yes, send me Oshikha's newsletter too <em style="color:var(--soft)">(optional)</em></span></label>
+    </div>
 
+    <div class="sendErr" id="sendErr" role="alert" hidden></div>
     <button class="btn" type="submit" id="submitBtn">Send my story to Oshikha</button>
   </form>
 </main>
 
-<footer>Om Namah Shivay 🤍 · Merely Mindful Limited</footer>
+<footer>Om Namah Shivay 🤍 · Merely Mindful Limited · <a href="privacy.html">Privacy</a></footer>
 
 <script>
 const LEAD_CAPTURE_URL="https://script.google.com/macros/s/AKfycbwMuyHV1RiURDdIclA4oLn6uX9-Lm3S13i6iBJahIoMOKJDk9zLFV2kHS6X3jaGHhWUHA/exec";
@@ -161,10 +180,36 @@ const params=new URLSearchParams(location.search);
 const TIERS={seed:{name:"Seed",price:"€42",sessions:0},bloom:{name:"Bloom",price:"€222",sessions:1},sacred:{name:"Sacred",price:"€357",sessions:2}};
 const tierKey=(params.get("tier")||"").toLowerCase(); const tier=TIERS[tierKey]||null;
 if(tier) document.getElementById("tierBadge").textContent="✓ "+tier.name+" Blueprint · "+tier.price+" confirmed";
+// Prefill from the intake link in the confirmation email (...&email=...&name=...). A "+" in an email can arrive as a space, so restore it.
+const pre=k=>(params.get(k)||"").trim();
+if(pre("email")) document.getElementById("email").value=pre("email").replace(/ /g,"+");
+if(pre("name")) document.getElementById("fullName").value=pre("name");
 const v=id=>(document.getElementById(id)?.value||"").trim();
+const esc=s=>String(s).replace(/[<>&"']/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;","'":"&#39;"}[c]));
+// One ID per visit, so pressing Send twice never creates two Blueprints.
+const SUBMISSION_ID=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2));
+let sending=false;
 
-document.getElementById("intake").addEventListener("submit",function(e){
+function showSendError(){
+  const box=document.getElementById("sendErr");
+  box.innerHTML='Your story hasn\'t reached us yet, so please press <strong>Send</strong> again. If it still won\'t go through, email your answers to <a href="mailto:oshika@merelymindful.com?subject=My%20Blueprint%20intake">oshika@merelymindful.com</a> and Oshikha will take it from there.';
+  box.hidden=false;
+  box.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+function showThankYou(data,matched){
+  const first=esc(data.fullName.split(" ")[0]||"sister");
+  const s=tier?tier.sessions:0;
+  const sessionLine=s?'<p>Your private link'+(s===2?'s':'')+' to book your '+(s===2?'two sessions':'session')+' with Oshikha '+(s===2?'are':'is')+' in your confirmation email.</p>':'';
+  const confirmLine=matched?'<p>A confirmation is on its way to your inbox. If you can\'t see it, check Promotions or Spam.</p>':'<p>Oshikha will confirm by email shortly.</p>';
+  document.getElementById("main").innerHTML='<div class="done"><img src="img/blueprint/goddess-wine.png" alt=""/><span class="label">Received with gratitude</span><h1>Your story is <em>held.</em></h1><p>Thank you, '+first+'. Your Sacred Body Blueprint is now being prepared from everything you\'ve shared. It will arrive at <strong>'+esc(data.email)+'</strong> within 24 hours.</p>'+confirmLine+sessionLine+'<p>This is your reminder, sister. You\'ve already taken the first intentional step.</p><p class="om">Om Namah Shivay 🤍</p></div>';
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.getElementById("intake").addEventListener("submit",async function(e){
   e.preventDefault();
+  if(sending) return;
+  document.getElementById("sendErr").hidden=true;
   let bad=false;
   document.querySelectorAll(".field").forEach(f=>f.classList.remove("invalid"));
   document.querySelectorAll("[data-req]").forEach(f=>{
@@ -173,26 +218,31 @@ document.getElementById("intake").addEventListener("submit",function(e){
     else { const el=f.querySelector("input,textarea,select"); ok=!!el.value.trim(); if(ok&&f.hasAttribute("data-email")) ok=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()); }
     if(!ok){f.classList.add("invalid");bad=true;}
   });
-  const c=document.querySelector("[data-consent]"); if(!document.getElementById("consent").checked){c.classList.add("invalid");bad=true;}
+  document.querySelectorAll("[data-consent]").forEach(c=>{ if(!c.querySelector('input[type="checkbox"]').checked){c.classList.add("invalid");bad=true;} });
   if(bad){document.querySelector(".field.invalid").scrollIntoView({behavior:"smooth",block:"center"});return;}
 
-  const data={source:"blueprint_intake",tier:tier?tier.name:(tierKey||"unknown"),stripeSession:params.get("session")||"",
+  const data={source:"blueprint_intake",submissionId:SUBMISSION_ID,tier:tier?tier.name:(tierKey||"unknown"),stripeSession:params.get("session")||"",
     fullName:v("fullName"),email:v("email"),phone:v("phone"),location:v("location"),age:v("age"),instagram:v("insta"),
     stage:(document.querySelector('input[name="stage"]:checked')||{}).value||"",history:v("history"),intention:v("intention"),
     cycleLength:v("cycleLength"),period:v("period"),cycleNotes:v("cycleNotes"),
     diet:[...document.querySelectorAll('input[name="diet"]:checked')].map(x=>x.value).join(", "),dayOfFood:v("dayOfFood"),digestion:v("digestion"),
     sleep:v("sleep"),stress:v("stress"),work:v("work"),practices:v("practices"),
     emotional:v("emotional"),body:v("body"),relationship:v("relationship"),home:v("home"),anything:v("anything"),
-    submittedAt:new Date().toISOString()};
-  const btn=document.getElementById("submitBtn"); btn.disabled=true; btn.textContent="Sending your story…";
-  fetch(LEAD_CAPTURE_URL,{method:"POST",headers:{"Content-Type":"text/plain"},body:JSON.stringify(data)})
-    .catch(err=>console.error("Intake capture failed:",err))
-    .finally(()=>{
-      const s=tier?tier.sessions:0;
-      const sessionLine=s?"<p>Now book your "+(s===2?"two private sessions":"private session")+" with Oshikha"+(s===2?" — book your first now and use the same link again for your second":"")+".</p><p><a href=\"https://calendly.com/merelymindful/the-sacred-body-blueprint\" target=\"_blank\" rel=\"noopener\" style=\"display:inline-block;margin-top:.6rem;background:#7A1030;color:#ECE9E1;padding:1rem 2rem;text-decoration:none;font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:.9rem\">Book my session →</a></p>":"";
-      document.getElementById("main").innerHTML='<div class="done"><img src="img/blueprint/goddess-wine.png" alt=""/><span class="label">Received with gratitude</span><h1>Your story is <em>held.</em></h1><p>Thank you, '+(data.fullName.split(" ")[0]||"sister").replace(/[<>&"]/g,"")+'. Oshikha will now prepare your Sacred Body Blueprint from everything you have shared. It will arrive at <strong>'+data.email.replace(/[<>&"]/g,"")+'</strong>.</p>'+sessionLine+'<p>This is your reminder, sister — you have already taken the first intentional step.</p><p class="om">Om Namah Shivay 🤍</p></div>';
-      window.scrollTo({top:0,behavior:"smooth"});
-    });
+    waOptIn:document.getElementById("waOptIn").checked,newsletter:document.getElementById("newsletter").checked,consentData:document.getElementById("consentData").checked,
+    website:v("website"),submittedAt:new Date().toISOString()};
+  const btn=document.getElementById("submitBtn"); sending=true; btn.disabled=true; btn.textContent="Sending your story…";
+  let result=null;
+  try{
+    const ctrl=new AbortController(); const timer=setTimeout(()=>ctrl.abort(),45000);
+    const res=await fetch(LEAD_CAPTURE_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data),signal:ctrl.signal});
+    clearTimeout(timer);
+    if(res.ok) result=await res.json().catch(()=>null);
+  }catch(err){ console.error("Intake send failed:",err); }
+  sending=false;
+  // Only say "received" once the automation confirms the answers are saved.
+  if(result&&result.ok===true){ showThankYou(data,result.matched!==false); return; }
+  btn.disabled=false; btn.textContent="Send my story again";
+  showSendError();
 });
 </script>
 </body>
